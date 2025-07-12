@@ -1,10 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { useCallback } from "react";
 import { useTranslations } from "next-intl";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
+import { Particles } from "@tsparticles/react";
+import { type Container, type ISourceOptions } from "@tsparticles/engine";
+import { loadSlim } from "@tsparticles/slim";
 
 const HeroContainer = styled.section`
   min-height: 100vh;
@@ -111,47 +114,54 @@ const HeroActions = styled(motion.div)`
   }
 `;
 
-const FloatingOrb = styled(motion.div)`
-  position: absolute;
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  filter: blur(80px);
-  z-index: 1;
-  pointer-events: none;
-`;
-
-const AnimatedBackground = styled(motion.div)`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    45deg,
-    ${({ theme }) => `${theme.colors.primary}15`} 0%,
-    ${({ theme }) => `${theme.colors.secondary}15`} 50%,
-    ${({ theme }) => `${theme.colors.primary}15`} 100%
-  );
-  background-size: 400% 400%;
-  animation: gradientAnimation 15s ease infinite;
-  z-index: 0;
-
-  @keyframes gradientAnimation {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
-  }
-`;
+const particlesOptions: ISourceOptions = {
+  background: {
+    opacity: 0,
+  },
+  fpsLimit: 120,
+  particles: {
+    color: {
+      value: "#ff0080",
+    },
+    links: {
+      color: "#ff0080",
+      distance: 150,
+      enable: true,
+      opacity: 0.2,
+      width: 1,
+    },
+    move: {
+      direction: "none",
+      enable: true,
+      outModes: {
+        default: "bounce",
+      },
+      random: false,
+      speed: 2,
+      straight: false,
+    },
+    number: {
+      value: 80,
+    },
+    opacity: {
+      value: 0.3,
+    },
+    shape: {
+      type: "circle",
+    },
+    size: {
+      value: { min: 1, max: 3 },
+    },
+  },
+  detectRetina: true,
+};
 
 export function Hero() {
   const t = useTranslations("hero");
+
+  const particlesInit = useCallback(async (engine: any) => {
+    await loadSlim(engine);
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -175,6 +185,18 @@ export function Hero() {
 
   return (
     <HeroContainer>
+      <Particles
+        id="tsparticles"
+        options={particlesOptions}
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          zIndex: 1,
+        }}
+      />
       <GlassCard
         variants={containerVariants}
         initial="hidden"
