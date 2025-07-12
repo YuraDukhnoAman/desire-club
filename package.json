@@ -1,0 +1,54 @@
+{
+  "name": "desire-music-club-website",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "dependencies": {
+    "@tsparticles/react": "^3.0.0",
+    "@tsparticles/slim": "^3.8.1",
+    "framer-motion": "^10.18.0",
+    "next": "14.0.4",
+    "next-intl": "^3.3.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^5.5.0",
+    "react-particles": "^2.12.2",
+    "react-tsparticles": "^2.12.2",
+    "styled-components": "^6.1.1",
+    "tsparticles": "^3.8.1",
+    "tsparticles-engine": "^2.12.0"
+  },
+  "devDependencies": {
+    "@storybook/addon-essentials": "^7.6.20",
+    "@storybook/addon-interactions": "^7.6.20",
+    "@storybook/addon-links": "^7.6.20",
+    "@storybook/addon-onboarding": "^1.0.10",
+    "@storybook/blocks": "^7.6.20",
+    "@storybook/nextjs": "^7.6.20",
+    "@storybook/react": "^7.6.20",
+    "@storybook/test": "^7.6.20",
+    "@types/node": "^20.10.5",
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.18",
+    "@types/styled-components": "^5.1.34",
+    "eslint": "^8.56.0",
+    "eslint-config-next": "14.0.4",
+    "storybook": "^7.6.20",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "eslintConfig": {
+    "extends": [
+      "plugin:storybook/recommended"
+    ]
+  }
+}

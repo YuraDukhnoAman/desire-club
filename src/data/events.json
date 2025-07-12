@@ -1,0 +1,71 @@
+[
+  {
+    "id": "event-1",
+    "translations": {
+      "en": {
+        "title": "Electronic Euphoria",
+        "description": "Progressive house and techno night with international DJs"
+      },
+      "ru": {
+        "title": "Электронная Эйфория",
+        "description": "Прогрессив хаус и техно ночь с международными диджеями"
+      },
+      "he": {
+        "title": "אופוריה אלקטרונית",
+        "description": "לילה של פרוגרסיב האוס וטכנו עם תקליטנים בינלאומיים"
+      }
+    },
+    "date": "2024-01-15",
+    "time": "22:00",
+    "type": "party",
+    "price": 80,
+    "image": "https://images.unsplash.com/photo-1571266028243-d220c9c3d3bb?w=800&h=600&fit=crop",
+    "bookingUrl": "https://example.com/book/1"
+  },
+  {
+    "id": "event-2",
+    "translations": {
+      "en": {
+        "title": "Live Jazz Sessions",
+        "description": "Intimate jazz performances with local and international artists"
+      },
+      "ru": {
+        "title": "Джазовые Сессии",
+        "description": "Камерные джазовые выступления с местными и международными артистами"
+      },
+      "he": {
+        "title": "מופעי ג'אז חיים",
+        "description": "הופעות ג'אז אינטימיות עם אמנים מקומיים ובינלאומיים"
+      }
+    },
+    "date": "2024-01-18",
+    "time": "21:00",
+    "type": "live",
+    "price": 60,
+    "image": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&h=600&fit=crop",
+    "bookingUrl": "https://example.com/book/2"
+  },
+  {
+    "id": "event-3",
+    "translations": {
+      "en": {
+        "title": "Comedy Night",
+        "description": "Stand-up comedy with the best local comedians"
+      },
+      "ru": {
+        "title": "Вечер Комедии",
+        "description": "Стендап комедия с лучшими местными комиками"
+      },
+      "he": {
+        "title": "ערב סטנדאפ",
+        "description": "מופעי סטנדאפ עם מיטב הקומיקאים המקומיים"
+      }
+    },
+    "date": "2024-01-20",
+    "time": "20:00",
+    "type": "standup",
+    "price": 0,
+    "image": "https://images.unsplash.com/photo-1576267423445-b2e0074d68a4?w=800&h=600&fit=crop",
+    "bookingUrl": "https://example.com/book/3"
+  }
+]

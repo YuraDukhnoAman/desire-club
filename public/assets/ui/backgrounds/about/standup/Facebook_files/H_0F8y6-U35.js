@@ -1,0 +1,8 @@
+;/*FB_PKG_DELIM*/
+
+__d("ActnSellerTagProductPillClickFalcoEvent",["FalcoLoggerInternal","getFalcoLogPolicy_DO_NOT_USE"],(function(a,b,c,d,e,f,g){"use strict";a=c("getFalcoLogPolicy_DO_NOT_USE")("1306");b=d("FalcoLoggerInternal").create("actn_seller_tag_product_pill_click",a);e=b;g["default"]=e}),98);
+__d("CometProductTagReferralCodeContext",["react"],(function(a,b,c,d,e,f,g){"use strict";var h;a=h||d("react");b=a.createContext(null);g["default"]=b}),98);
+__d("CommerceStorefrontImpressionFalcoEvent",["FalcoLoggerInternal","getFalcoLogPolicy_DO_NOT_USE"],(function(a,b,c,d,e,f,g){"use strict";a=c("getFalcoLogPolicy_DO_NOT_USE")("3157");b=d("FalcoLoggerInternal").create("commerce_storefront_impression",a);e=b;g["default"]=e}),98);
+__d("MarketplaceClickFalcoEvent",["FalcoLoggerInternal","getFalcoLogPolicy_DO_NOT_USE"],(function(a,b,c,d,e,f,g){"use strict";a=c("getFalcoLogPolicy_DO_NOT_USE")("1743922");b=d("FalcoLoggerInternal").create("marketplace_click",a);e=b;g["default"]=e}),98);
+__d("MarketplaceImpressionFalcoEvent",["FalcoLoggerInternal","getFalcoLogPolicy_DO_NOT_USE"],(function(a,b,c,d,e,f,g){"use strict";a=c("getFalcoLogPolicy_DO_NOT_USE")("1743925");b=d("FalcoLoggerInternal").create("marketplace_impression",a);e=b;g["default"]=e}),98);
+__d("XCometCommerceProductItemControllerRouteBuilder",["jsRouteBuilder"],(function(a,b,c,d,e,f,g){a=c("jsRouteBuilder")("/commerce/products/{?slug}/{listing_id}/",Object.freeze({}),void 0);b=a;g["default"]=b}),98);

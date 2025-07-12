@@ -1,0 +1,3 @@
+;/*FB_PKG_DELIM*/
+
+__d("FBNucleusUndoOutline24Icon.react",["react"],(function(a,b,c,d,e,f,g){"use strict";var h,i=h||d("react");function a(a){return i.jsxs("svg",babelHelpers["extends"]({viewBox:"0 0 24 24",width:"1em",height:"1em",fill:"currentColor"},a,{children:[a.title!=null&&i.jsx("title",{children:a.title}),a.children!=null&&i.jsx("defs",{children:a.children}),i.jsx("path",{d:"M7.707 3.707a1 1 0 0 0-1.414-1.414l-2.94 2.94a2.5 2.5 0 0 0 0 3.535l2.94 2.94a1 1 0 0 0 1.414-1.415L5.414 8H15a5 5 0 0 1 0 10H6a1 1 0 1 0 0 2h9a7 7 0 1 0 0-14H5.414l2.293-2.293z"})]}))}a.displayName=a.name+" [from "+f.id+"]";a._size=24;a._isSVG=!0;b=a;g["default"]=b}),98);
