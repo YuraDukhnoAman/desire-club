@@ -12,6 +12,7 @@ interface ButtonProps {
   disabled?: boolean;
   children: React.ReactNode;
   className?: string;
+  external?: boolean;
 }
 
 const StyledButton = styled.button<{ variant: string; size: string }>`
@@ -39,7 +40,10 @@ const StyledButton = styled.button<{ variant: string; size: string }>`
     size === "small" ? "0.875rem" : size === "large" ? "1.125rem" : "1rem"};
   font-weight: 600;
   border-radius: 0.5rem;
-  cursor: pointer;
+  cursor: pointer !important;
+  pointer-events: all !important;
+  position: relative;
+  z-index: 10;
   transition: all 0.3s ease;
   text-decoration: none;
   display: inline-flex;
@@ -92,6 +96,12 @@ const StyledLink = styled(Link)<{ variant: string; size: string }>`
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 20px rgba(255, 0, 128, 0.3);
+    color: ${({ variant }) =>
+      variant === "primary"
+        ? "#ffffff"
+        : variant === "secondary"
+        ? "#000000"
+        : "#FF0080"};
   }
 `;
 
@@ -103,17 +113,39 @@ export function Button({
   disabled,
   children,
   className,
+  external = false,
 }: ButtonProps) {
   if (href) {
+    if (external) {
+      return (
+        <StyledButton
+          as="a"
+          href={href}
+          variant={variant}
+          size={size}
+          className={className}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {children}
+        </StyledButton>
+      );
+    }
     return (
-      <StyledLink
-        href={href}
-        variant={variant}
-        size={size}
-        className={className}
-      >
-        {children}
-      </StyledLink>
+      <Link href={href}>
+        <StyledButton
+          as="a"
+          variant={variant}
+          size={size}
+          className={className}
+          onClick={() => {
+            console.log("Button clicked, navigating to:", href);
+            onClick?.();
+          }}
+        >
+          {children}
+        </StyledButton>
+      </Link>
     );
   }
 

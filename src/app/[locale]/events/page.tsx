@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 import eventsData from "@/data/events.json";
 import { useLocale } from "next-intl";
+import { EventCard } from "@/components/ui/EventCard";
 
 type EventTranslation = {
   title: string;
@@ -129,56 +130,6 @@ const EventsGrid = styled(motion.div)`
   }
 `;
 
-const EventCard = styled(motion.div)`
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border-radius: ${({ theme }) => theme.borderRadius.xl};
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: ${({ theme }) => theme.spacing.xl};
-  transition: all 0.3s ease;
-
-  &:hover {
-    transform: translateY(-5px);
-    border-color: ${({ theme }) => theme.colors.primary};
-    box-shadow: 0 10px 30px -10px ${({ theme }) => `${theme.colors.primary}30`};
-  }
-`;
-
-const EventTitle = styled.h3`
-  font-size: ${({ theme }) => theme.typography.fontSize.xl};
-  color: ${({ theme }) => theme.colors.text};
-  margin-bottom: ${({ theme }) => theme.spacing.sm};
-`;
-
-const EventDate = styled.p`
-  color: ${({ theme }) => theme.colors.primary};
-  font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
-  margin-bottom: ${({ theme }) => theme.spacing.sm};
-`;
-
-const EventDescription = styled.p`
-  color: ${({ theme }) => theme.colors.textSecondary};
-  margin-bottom: ${({ theme }) => theme.spacing.lg};
-  line-height: ${({ theme }) => theme.typography.lineHeight.relaxed};
-`;
-
-const EventPrice = styled.p`
-  font-size: ${({ theme }) => theme.typography.fontSize.lg};
-  color: ${({ theme }) => theme.colors.secondary};
-  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
-`;
-
-const EventType = styled.span`
-  background: ${({ theme }) => `${theme.colors.primary}15`};
-  color: ${({ theme }) => theme.colors.primary};
-  padding: ${({ theme }) => `${theme.spacing.xs} ${theme.spacing.sm}`};
-  border-radius: ${({ theme }) => theme.borderRadius.sm};
-  font-size: ${({ theme }) => theme.typography.fontSize.sm};
-  text-transform: uppercase;
-  margin-bottom: ${({ theme }) => theme.spacing.md};
-  display: inline-block;
-`;
-
 export default function EventsPage() {
   const t = useTranslations("events");
   const locale = useLocale() as keyof EventTranslations;
@@ -247,22 +198,19 @@ export default function EventsPage() {
 
       <EventsGrid>
         <AnimatePresence mode="wait">
-          {filteredEvents.map((event, index) => (
+          {filteredEvents.map((event) => (
             <EventCard
               key={event.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              <EventType>{t(`types.${event.type}`)}</EventType>
-              <EventTitle>{event.title}</EventTitle>
-              <EventDate>{`${event.date} ${event.time}`}</EventDate>
-              <EventDescription>{event.description}</EventDescription>
-              <EventPrice>
-                {event.price > 0 ? `₪${event.price}` : t("free")}
-              </EventPrice>
-            </EventCard>
+              id={event.id}
+              title={event.translations[locale].title}
+              date={event.date}
+              time={event.time}
+              description={event.translations[locale].description}
+              price={event.price}
+              type={event.type}
+              image={event.image}
+              bookingUrl={event.bookingUrl}
+            />
           ))}
         </AnimatePresence>
       </EventsGrid>

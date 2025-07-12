@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useCallback } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
@@ -158,6 +158,7 @@ const particlesOptions: ISourceOptions = {
 
 export function Hero() {
   const t = useTranslations("hero");
+  const locale = useLocale();
 
   const particlesInit = useCallback(async (engine: any) => {
     await loadSlim(engine);
@@ -211,10 +212,10 @@ export function Hero() {
             {t("description")}
           </GlowingDescription>
           <HeroActions variants={itemVariants}>
-            <Button variant="primary" size="large" href="/book">
+            <Button variant="primary" size="large" href={`/${locale}/book`}>
               {t("bookTable")}
             </Button>
-            <Button variant="secondary" size="large" href="/events">
+            <Button variant="secondary" size="large" href={`/${locale}/events`}>
               {t("viewEvents")}
             </Button>
           </HeroActions>

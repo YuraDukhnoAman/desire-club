@@ -1,133 +1,130 @@
 "use client";
 
 import React from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import styled from "styled-components";
 import { Button } from "@/components/ui/Button";
+import { EventCard } from "@/components/ui/EventCard";
+import eventsData from "@/data/events.json";
+import { motion } from "framer-motion";
 
 const EventsContainer = styled.section`
-  padding: 4rem 1.5rem;
+  padding: ${({ theme }) => `${theme.spacing.xxl} ${theme.spacing.lg}`};
   max-width: 1200px;
   margin: 0 auto;
 `;
 
 const EventsHeader = styled.div`
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: ${({ theme }) => theme.spacing.xxl};
 `;
 
-const EventsTitle = styled.h2`
-  font-size: 2.5rem;
-  color: #ffffff;
-  margin-bottom: 1rem;
-  font-family: "Orbitron", monospace;
+const EventsTitle = styled(motion.h2)`
+  font-size: ${({ theme }) => theme.typography.fontSize["4xl"]};
+  color: ${({ theme }) => theme.colors.text};
+  margin-bottom: ${({ theme }) => theme.spacing.md};
+  font-family: ${({ theme }) => theme.typography.fontFamily.accent};
+  background: linear-gradient(
+    135deg,
+    ${({ theme }) => theme.colors.primary} 0%,
+    ${({ theme }) => theme.colors.secondary} 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 20px ${({ theme }) => `${theme.colors.primary}50`};
 `;
 
-const EventsDescription = styled.p`
-  font-size: 1.125rem;
-  color: #cccccc;
-  margin-bottom: 2rem;
+const EventsDescription = styled(motion.p)`
+  font-size: ${({ theme }) => theme.typography.fontSize.lg};
+  color: ${({ theme }) => theme.colors.textSecondary};
+  margin-bottom: ${({ theme }) => theme.spacing.xl};
+  max-width: 800px;
+  margin: 0 auto;
 `;
 
-const EventsGrid = styled.div`
+const EventsGrid = styled(motion.div)`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-bottom: 3rem;
+  gap: ${({ theme }) => theme.spacing.xl};
+  margin-bottom: ${({ theme }) => theme.spacing.xxl};
 `;
 
-const EventCard = styled.div`
-  background: #1a1a1a;
-  border-radius: 0.75rem;
-  padding: 1.5rem;
-  border: 1px solid #333333;
-  transition: transform 0.3s ease;
-
-  &:hover {
-    transform: translateY(-5px);
-    border-color: #ff0080;
-  }
+const ButtonContainer = styled(motion.div)`
+  text-align: center;
+  position: relative;
+  z-index: 10;
 `;
 
-const EventTitle = styled.h3`
-  font-size: 1.25rem;
-  color: #ffffff;
-  margin-bottom: 0.5rem;
-`;
-
-const EventDate = styled.p`
-  color: #00ffff;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-`;
-
-const EventDescription = styled.p`
-  color: #cccccc;
-  margin-bottom: 1rem;
-`;
-
-const EventPrice = styled.p`
-  color: #ff0080;
-  font-weight: 600;
-  font-size: 1.125rem;
+const StyledButton = styled(Button)`
+  cursor: pointer !important;
+  pointer-events: all !important;
 `;
 
 export function EventsPreview() {
   const t = useTranslations("events");
+  const locale = useLocale() as keyof (typeof eventsData)[0]["translations"];
 
-  // Mock events data
-  const events = [
-    {
-      id: 1,
-      title: "Electronic Euphoria",
-      date: "2024-01-15",
-      description: "Progressive house and techno night with international DJs",
-      price: 80,
-    },
-    {
-      id: 2,
-      title: "Live Jazz Sessions",
-      date: "2024-01-18",
-      description:
-        "Intimate jazz performances with local and international artists",
-      price: 60,
-    },
-    {
-      id: 3,
-      title: "Comedy Night",
-      date: "2024-01-20",
-      description: "Stand-up comedy with the best local comedians",
-      price: 0,
-    },
-  ];
+  // Get upcoming events - show all events for now
+  const upcomingEvents = eventsData
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+    .slice(0, 3);
 
-  const description = t("description");
+  console.log("All events:", upcomingEvents);
 
   return (
     <EventsContainer>
       <EventsHeader>
-        <EventsTitle>{t("title")}</EventsTitle>
-        <EventsDescription>{description}</EventsDescription>
+        <EventsTitle
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          {t("title")}
+        </EventsTitle>
+        <EventsDescription
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          {t("description")}
+        </EventsDescription>
       </EventsHeader>
 
-      <EventsGrid>
-        {events.map((event) => (
-          <EventCard key={event.id}>
-            <EventTitle>{event.title}</EventTitle>
-            <EventDate>{event.date}</EventDate>
-            <EventDescription>{event.description}</EventDescription>
-            <EventPrice>
-              {event.price > 0 ? `₪${event.price}` : t("free")}
-            </EventPrice>
-          </EventCard>
+      <EventsGrid
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
+      >
+        {upcomingEvents.map((event) => (
+          <EventCard
+            key={event.id}
+            id={event.id}
+            title={event.translations[locale].title}
+            date={event.date}
+            time={event.time}
+            description={event.translations[locale].description}
+            price={event.price}
+            type={event.type}
+            image={event.image}
+            bookingUrl={event.bookingUrl}
+          />
         ))}
       </EventsGrid>
 
-      <div style={{ textAlign: "center" }}>
-        <Button variant="primary" size="large" href="/events">
+      <ButtonContainer
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.6 }}
+      >
+        <StyledButton
+          variant="primary"
+          size="large"
+          href={`/${locale}/events`}
+          external={false}
+        >
           {t("viewEvents")}
-        </Button>
-      </div>
+        </StyledButton>
+      </ButtonContainer>
     </EventsContainer>
   );
 }

@@ -15,12 +15,13 @@
         "description": "לילה של פרוגרסיב האוס וטכנו עם תקליטנים בינלאומיים"
       }
     },
-    "date": "2024-01-15",
+    "date": "2024-04-15",
     "time": "22:00",
     "type": "party",
     "price": 80,
-    "image": "https://images.unsplash.com/photo-1571266028243-d220c9c3d3bb?w=800&h=600&fit=crop",
-    "bookingUrl": "https://example.com/book/1"
+    "image": "/assets/ui/backgrounds/about/disco/492231185_1243597314437632_4946434647322291015_n.jpg",
+    "bookingUrl": "https://example.com/book/1",
+    "featured": true
   },
   {
     "id": "event-2",
@@ -38,12 +39,13 @@
         "description": "הופעות ג'אז אינטימיות עם אמנים מקומיים ובינלאומיים"
       }
     },
-    "date": "2024-01-18",
+    "date": "2024-04-18",
     "time": "21:00",
     "type": "live",
     "price": 60,
-    "image": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&h=600&fit=crop",
-    "bookingUrl": "https://example.com/book/2"
+    "image": "/assets/ui/backgrounds/about/live-concerts/513951011_1300841258713237_3364042759429850319_n.jpg",
+    "bookingUrl": "https://example.com/book/2",
+    "featured": true
   },
   {
     "id": "event-3",
@@ -61,11 +63,11 @@
         "description": "מופעי סטנדאפ עם מיטב הקומיקאים המקומיים"
       }
     },
-    "date": "2024-01-20",
+    "date": "2024-04-20",
     "time": "20:00",
     "type": "standup",
     "price": 0,
-    "image": "https://images.unsplash.com/photo-1576267423445-b2e0074d68a4?w=800&h=600&fit=crop",
+    "image": "/assets/ui/backgrounds/about/standup/500280366_1271018098362220_8295739600963142980_n.jpg",
     "bookingUrl": "https://example.com/book/3"
   }
 ]
