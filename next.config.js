@@ -2,7 +2,6 @@ const withNextIntl = require("next-intl/plugin")("./src/i18n.ts");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "export",
   basePath:
     process.env.NODE_ENV === "production" ? "/disire-music-club-website" : "",
   compiler: {
@@ -15,6 +14,7 @@ const nextConfig = {
   env: {
     _next_intl_trailing_slash: "1",
   },
+  trailingSlash: true,
 };
 
 module.exports = withNextIntl(nextConfig);

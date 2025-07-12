@@ -7,6 +7,15 @@ import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Desire Music Club",
+  description: "Tel Aviv's premier nightclub for electronic music lovers",
+  icons: {
+    icon: "/favicon.ico",
+  },
+};
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -30,7 +39,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <body>
-        <NextIntlClientProvider messages={messages}>
+        <NextIntlClientProvider locale={locale} messages={messages}>
           <StyledComponentsRegistry>
             <ThemeProvider>
               <ErrorBoundary>
