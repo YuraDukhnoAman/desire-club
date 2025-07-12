@@ -6,8 +6,8 @@ export const PageContainer = styled.div`
   min-height: 100vh;
   padding: ${({ theme }) => theme.spacing.xxl};
   padding-top: calc(
-    70px + ${({ theme }) => theme.spacing.xxl}
-  ); /* Account for fixed header */
+    140px + ${({ theme }) => theme.spacing.xxl}
+  ); /* Account for fixed header with large logo */
   background: ${({ theme }) => theme.colors.background};
 `;
 
