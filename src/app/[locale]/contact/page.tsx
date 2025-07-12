@@ -8,7 +8,7 @@ import ContactInfo from "@/components/ui/ContactInfo";
 const Container = styled.div`
   max-width: ${({ theme }) => theme.breakpoints.desktop};
   margin: 0 auto;
-  padding: calc(70px + ${({ theme }) => theme.spacing.xxl})
+  padding: calc(140px + ${({ theme }) => theme.spacing.xxl})
     ${({ theme }) => theme.spacing.xl} ${({ theme }) => theme.spacing.xxl};
 `;
 
