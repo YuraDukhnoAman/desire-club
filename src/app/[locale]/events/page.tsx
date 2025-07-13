@@ -1,34 +1,10 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React from "react";
 import { useTranslations } from "next-intl";
 import styled from "styled-components";
-import { motion, AnimatePresence } from "framer-motion";
-import eventsData from "@/data/events.json";
-import { useLocale } from "next-intl";
-import { EventCard } from "@/components/ui/EventCard";
-
-type EventTranslation = {
-  title: string;
-  description: string;
-};
-
-type EventTranslations = {
-  en: EventTranslation;
-  ru: EventTranslation;
-  he: EventTranslation;
-};
-
-type Event = {
-  id: string;
-  translations: EventTranslations;
-  date: string;
-  time: string;
-  type: string;
-  price: number;
-  image: string;
-  bookingUrl: string;
-};
+import { motion } from "framer-motion";
+import { FacebookEventsGrid } from "@/components/sections/FacebookEventsGrid";
 
 const PageContainer = styled.div`
   min-height: 100vh;
@@ -85,71 +61,8 @@ const Description = styled(motion.p)`
   }
 `;
 
-const FiltersContainer = styled(motion.div)`
-  display: flex;
-  gap: ${({ theme }) => theme.spacing.md};
-  justify-content: center;
-  margin: ${({ theme }) => theme.spacing.xxl} 0;
-  flex-wrap: wrap;
-  max-width: 1200px;
-  margin: ${({ theme }) => theme.spacing.xxl} auto;
-  padding: 0 ${({ theme }) => theme.spacing.md};
-`;
-
-const FilterButton = styled(motion.button)<{ $active: boolean }>`
-  padding: ${({ theme }) => `${theme.spacing.sm} ${theme.spacing.lg}`};
-  border-radius: ${({ theme }) => theme.borderRadius.lg};
-  border: 1px solid
-    ${({ theme, $active }) =>
-      $active ? theme.colors.primary : "rgba(255, 255, 255, 0.1)"};
-  background: ${({ $active }) =>
-    $active ? "rgba(255, 255, 255, 0.1)" : "rgba(255, 255, 255, 0.05)"};
-  color: ${({ theme, $active }) =>
-    $active ? theme.colors.primary : theme.colors.textSecondary};
-  cursor: pointer;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-
-  &:hover {
-    border-color: ${({ theme }) => theme.colors.primary};
-    transform: translateY(-2px);
-  }
-`;
-
-const EventsGrid = styled(motion.div)`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: ${({ theme }) => theme.spacing.xl};
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 ${({ theme }) => theme.spacing.md};
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: ${({ theme }) => theme.spacing.lg};
-  }
-`;
-
 export default function EventsPage() {
   const t = useTranslations("events");
-  const locale = useLocale() as keyof EventTranslations;
-  const [selectedType, setSelectedType] = useState<string | null>(null);
-
-  const eventTypes = useMemo(() => {
-    return Array.from(new Set(eventsData.map((event: Event) => event.type)));
-  }, []);
-
-  const filteredEvents = useMemo(() => {
-    return (
-      selectedType
-        ? eventsData.filter((event: Event) => event.type === selectedType)
-        : eventsData
-    ).map((event: Event) => ({
-      ...event,
-      title: event.translations[locale].title,
-      description: event.translations[locale].description,
-    }));
-  }, [selectedType, locale]);
 
   return (
     <PageContainer>
@@ -170,50 +83,7 @@ export default function EventsPage() {
         </Description>
       </Header>
 
-      <FiltersContainer
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.4 }}
-      >
-        <FilterButton
-          $active={!selectedType}
-          onClick={() => setSelectedType(null)}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          {t("all")}
-        </FilterButton>
-        {eventTypes.map((type) => (
-          <FilterButton
-            key={type}
-            $active={selectedType === type}
-            onClick={() => setSelectedType(type)}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            {t(`types.${type}`)}
-          </FilterButton>
-        ))}
-      </FiltersContainer>
-
-      <EventsGrid>
-        <AnimatePresence mode="wait">
-          {filteredEvents.map((event) => (
-            <EventCard
-              key={event.id}
-              id={event.id}
-              title={event.translations[locale].title}
-              date={event.date}
-              time={event.time}
-              description={event.translations[locale].description}
-              price={event.price}
-              type={event.type}
-              image={event.image}
-              bookingUrl={event.bookingUrl}
-            />
-          ))}
-        </AnimatePresence>
-      </EventsGrid>
+      <FacebookEventsGrid />
     </PageContainer>
   );
 }

@@ -3,15 +3,16 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { AlbumCard } from "@/components/ui/AlbumCard";
 import { transformFacebookAlbum } from "@/lib/facebook";
 import { FacebookAlbumsResponse } from "@/types/facebook";
 
-const GridContainer = styled.section`
+const GridContainer = styled.section<{ $isRtl: boolean }>`
   padding: ${({ theme }) => theme.spacing.xl} 0;
   max-width: 1200px;
   margin: 0 auto;
+  direction: ${({ $isRtl }) => ($isRtl ? "rtl" : "ltr")};
 `;
 
 const Header = styled.div`
@@ -127,7 +128,9 @@ const LoadMoreButton = styled(motion.button)`
 `;
 
 export function AlbumsGrid() {
-  const t = useTranslations();
+  const t = useTranslations("gallery.albums");
+  const locale = useLocale();
+  const isRtl = locale === "he";
   const [albums, setAlbums] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -205,7 +208,7 @@ export function AlbumsGrid() {
 
   if (loading) {
     return (
-      <GridContainer>
+      <GridContainer $isRtl={isRtl}>
         <LoadingContainer>
           <LoadingSpinner />
         </LoadingContainer>
@@ -215,31 +218,33 @@ export function AlbumsGrid() {
 
   if (error) {
     return (
-      <GridContainer>
+      <GridContainer $isRtl={isRtl}>
         <ErrorContainer>
-          <ErrorMessage>Failed to load photo albums: {error}</ErrorMessage>
-          <RetryButton onClick={handleRetry}>Try Again</RetryButton>
+          <ErrorMessage>
+            {t("error")}: {error}
+          </ErrorMessage>
+          <RetryButton onClick={handleRetry}>{t("retry")}</RetryButton>
         </ErrorContainer>
       </GridContainer>
     );
   }
 
   return (
-    <GridContainer>
+    <GridContainer $isRtl={isRtl}>
       <Header>
         <Title
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          Photo Albums
+          {t("title")}
         </Title>
         <Description
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          Explore moments from our events and celebrations at Desire Club
+          {t("description")}
         </Description>
       </Header>
 
@@ -276,7 +281,7 @@ export function AlbumsGrid() {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          {loadingMore ? "Loading..." : "Load More Albums"}
+          {loadingMore ? t("loading") : t("loadMore")}
         </LoadMoreButton>
       )}
     </GridContainer>

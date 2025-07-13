@@ -15,29 +15,29 @@ interface ButtonProps {
   external?: boolean;
 }
 
-const StyledButton = styled.button<{ variant: string; size: string }>`
-  background: ${({ variant }) =>
-    variant === "primary"
+const StyledButton = styled.button<{ $variant: string; $size: string }>`
+  background: ${({ $variant }) =>
+    $variant === "primary"
       ? "#FF0080"
-      : variant === "secondary"
+      : $variant === "secondary"
       ? "#00FFFF"
       : "transparent"};
-  color: ${({ variant }) =>
-    variant === "primary"
+  color: ${({ $variant }) =>
+    $variant === "primary"
       ? "#ffffff"
-      : variant === "secondary"
+      : $variant === "secondary"
       ? "#000000"
       : "#FF0080"};
-  border: ${({ variant }) =>
-    variant === "outline" ? "2px solid #FF0080" : "none"};
-  padding: ${({ size }) =>
-    size === "small"
+  border: ${({ $variant }) =>
+    $variant === "outline" ? "2px solid #FF0080" : "none"};
+  padding: ${({ $size }) =>
+    $size === "small"
       ? "0.5rem 1rem"
-      : size === "large"
+      : $size === "large"
       ? "1rem 2rem"
       : "0.75rem 1.5rem"};
-  font-size: ${({ size }) =>
-    size === "small" ? "0.875rem" : size === "large" ? "1.125rem" : "1rem"};
+  font-size: ${({ $size }) =>
+    $size === "small" ? "0.875rem" : $size === "large" ? "1.125rem" : "1rem"};
   font-weight: 600;
   border-radius: 0.5rem;
   cursor: pointer !important;
@@ -61,29 +61,29 @@ const StyledButton = styled.button<{ variant: string; size: string }>`
   }
 `;
 
-const StyledLink = styled(Link)<{ variant: string; size: string }>`
-  background: ${({ variant }) =>
-    variant === "primary"
+const StyledLink = styled(Link)<{ $variant: string; $size: string }>`
+  background: ${({ $variant }) =>
+    $variant === "primary"
       ? "#FF0080"
-      : variant === "secondary"
+      : $variant === "secondary"
       ? "#00FFFF"
       : "transparent"};
-  color: ${({ variant }) =>
-    variant === "primary"
+  color: ${({ $variant }) =>
+    $variant === "primary"
       ? "#ffffff"
-      : variant === "secondary"
+      : $variant === "secondary"
       ? "#000000"
       : "#FF0080"};
-  border: ${({ variant }) =>
-    variant === "outline" ? "2px solid #FF0080" : "none"};
-  padding: ${({ size }) =>
-    size === "small"
+  border: ${({ $variant }) =>
+    $variant === "outline" ? "2px solid #FF0080" : "none"};
+  padding: ${({ $size }) =>
+    $size === "small"
       ? "0.5rem 1rem"
-      : size === "large"
+      : $size === "large"
       ? "1rem 2rem"
       : "0.75rem 1.5rem"};
-  font-size: ${({ size }) =>
-    size === "small" ? "0.875rem" : size === "large" ? "1.125rem" : "1rem"};
+  font-size: ${({ $size }) =>
+    $size === "small" ? "0.875rem" : $size === "large" ? "1.125rem" : "1rem"};
   font-weight: 600;
   border-radius: 0.5rem;
   cursor: pointer;
@@ -96,10 +96,10 @@ const StyledLink = styled(Link)<{ variant: string; size: string }>`
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 20px rgba(255, 0, 128, 0.3);
-    color: ${({ variant }) =>
-      variant === "primary"
+    color: ${({ $variant }) =>
+      $variant === "primary"
         ? "#ffffff"
-        : variant === "secondary"
+        : $variant === "secondary"
         ? "#000000"
         : "#FF0080"};
   }
@@ -121,8 +121,8 @@ export function Button({
         <StyledButton
           as="a"
           href={href}
-          variant={variant}
-          size={size}
+          $variant={variant}
+          $size={size}
           className={className}
           target="_blank"
           rel="noopener noreferrer"
@@ -134,12 +134,10 @@ export function Button({
     return (
       <Link href={href}>
         <StyledButton
-          as="a"
-          variant={variant}
-          size={size}
+          $variant={variant}
+          $size={size}
           className={className}
           onClick={() => {
-            console.log("Button clicked, navigating to:", href);
             onClick?.();
           }}
         >
@@ -151,8 +149,8 @@ export function Button({
 
   return (
     <StyledButton
-      variant={variant}
-      size={size}
+      $variant={variant}
+      $size={size}
       onClick={onClick}
       disabled={disabled}
       className={className}

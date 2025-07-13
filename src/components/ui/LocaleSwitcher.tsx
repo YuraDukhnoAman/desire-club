@@ -35,7 +35,7 @@ const SwitcherButton = styled.button`
   }
 `;
 
-const SwitcherDropdown = styled.div<{ isOpen: boolean }>`
+const SwitcherDropdown = styled.div<{ $isOpen: boolean }>`
   position: absolute;
   top: calc(100% + ${({ theme }) => theme.spacing.sm});
   right: 0;
@@ -45,9 +45,9 @@ const SwitcherDropdown = styled.div<{ isOpen: boolean }>`
   box-shadow: ${({ theme }) => theme.shadows.medium};
   z-index: ${({ theme }) => theme.zIndex.dropdown};
   min-width: 140px;
-  opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
-  visibility: ${({ isOpen }) => (isOpen ? "visible" : "hidden")};
-  transform: translateY(${({ isOpen }) => (isOpen ? "0" : "-10px")});
+  opacity: ${({ $isOpen }) => ($isOpen ? 1 : 0)};
+  visibility: ${({ $isOpen }) => ($isOpen ? "visible" : "hidden")};
+  transform: translateY(${({ $isOpen }) => ($isOpen ? "0" : "-10px")});
   transition: all ${({ theme }) => theme.animations.duration.fast}
     ${({ theme }) => theme.animations.easing.easeInOut};
 
@@ -57,18 +57,18 @@ const SwitcherDropdown = styled.div<{ isOpen: boolean }>`
     bottom: ${({ theme }) => theme.spacing.xl};
     left: ${({ theme }) => theme.spacing.md};
     right: ${({ theme }) => theme.spacing.md};
-    transform: translateY(${({ isOpen }) => (isOpen ? "0" : "20px")});
+    transform: translateY(${({ $isOpen }) => ($isOpen ? "0" : "20px")});
   }
 `;
 
-const SwitcherOption = styled.button<{ isActive: boolean }>`
+const SwitcherOption = styled.button<{ $isActive: boolean }>`
   width: 100%;
   padding: ${({ theme }) => theme.spacing.sm} ${({ theme }) => theme.spacing.md};
-  background: ${({ theme, isActive }) =>
-    isActive ? theme.colors.surfaceLight : "none"};
+  background: ${({ theme, $isActive }) =>
+    $isActive ? theme.colors.surfaceLight : "none"};
   border: none;
-  color: ${({ theme, isActive }) =>
-    isActive ? theme.colors.primary : theme.colors.textSecondary};
+  color: ${({ theme, $isActive }) =>
+    $isActive ? theme.colors.primary : theme.colors.textSecondary};
   font-size: ${({ theme }) => theme.typography.fontSize.sm};
   cursor: pointer;
   display: flex;
@@ -181,12 +181,12 @@ export function LocaleSwitcher() {
         <span aria-hidden="true">{isOpen ? "▲" : "▼"}</span>
       </SwitcherButton>
 
-      <SwitcherDropdown isOpen={isOpen} role="menu">
+      <SwitcherDropdown $isOpen={isOpen} role="menu">
         {locales.map((localeOption) => (
           <SwitcherOption
             key={localeOption.code}
             onClick={() => handleLocaleChange(localeOption.code)}
-            isActive={localeOption.code === locale}
+            $isActive={localeOption.code === locale}
             role="menuitem"
             aria-current={localeOption.code === locale}
           >

@@ -4,22 +4,50 @@ import React from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
 
-const Card = styled(motion.div)`
+const Card = styled(motion.div)<{ $isRtl: boolean }>`
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
   border-radius: ${({ theme }) => theme.borderRadius.xl};
   border: 1px solid rgba(255, 255, 255, 0.1);
   overflow: hidden;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
+  position: relative;
+  direction: ${({ $isRtl }) => ($isRtl ? "rtl" : "ltr")};
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      135deg,
+      ${({ theme }) => `${theme.colors.primary}15`} 0%,
+      ${({ theme }) => `${theme.colors.secondary}10`} 100%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 1;
+  }
 
   &:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px) scale(1.02);
     border-color: ${({ theme }) => theme.colors.primary};
-    box-shadow: 0 10px 30px -10px ${({ theme }) => `${theme.colors.primary}30`};
+    box-shadow: 0 20px 40px -15px ${({ theme }) => `${theme.colors.primary}40`},
+      0 0 0 1px ${({ theme }) => `${theme.colors.primary}20`};
+
+    &::before {
+      opacity: 1;
+    }
+  }
+
+  &:active {
+    transform: translateY(-6px) scale(1.01);
   }
 `;
 
@@ -30,8 +58,11 @@ const ImageContainer = styled.div`
   overflow: hidden;
 `;
 
-const Content = styled.div`
+const Content = styled.div<{ $isRtl: boolean }>`
   padding: ${({ theme }) => theme.spacing.lg};
+  position: relative;
+  z-index: 2;
+  text-align: ${({ $isRtl }) => ($isRtl ? "right" : "left")};
 `;
 
 const Title = styled.h3`
@@ -77,18 +108,46 @@ const AlbumLink = styled(Link)`
 `;
 
 const FacebookLink = styled.a`
-  display: inline-block;
+  display: block;
+  width: fit-content;
+  margin: 0 auto;
   color: ${({ theme }) => theme.colors.primary};
   font-size: ${({ theme }) => theme.typography.fontSize.sm};
   text-decoration: none;
-  border: 1px solid ${({ theme }) => theme.colors.primary};
-  padding: ${({ theme }) => `${theme.spacing.xs} ${theme.spacing.sm}`};
-  border-radius: ${({ theme }) => theme.borderRadius.sm};
-  transition: all 0.3s ease;
+  border: 2px solid ${({ theme }) => theme.colors.primary};
+  padding: ${({ theme }) => `${theme.spacing.sm} ${theme.spacing.lg}`};
+  border-radius: ${({ theme }) => theme.borderRadius.md};
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
+  text-align: center;
+  position: relative;
+  z-index: 3;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: ${({ theme }) => theme.colors.primary};
+    transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: -1;
+  }
 
   &:hover {
-    background: ${({ theme }) => theme.colors.primary};
     color: ${({ theme }) => theme.colors.background};
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px -8px ${({ theme }) => `${theme.colors.primary}50`};
+
+    &::before {
+      left: 0;
+    }
+  }
+
+  &:active {
+    transform: translateY(0);
   }
 `;
 
@@ -126,9 +185,11 @@ export function AlbumCard({
   facebookUrl,
   clickable = false,
 }: AlbumCardProps) {
-  const t = useTranslations();
+  const t = useTranslations("gallery.albums");
+  const locale = useLocale();
+  const isRtl = locale === "he";
 
-  const formattedDate = new Date(createdAt).toLocaleDateString("en-US", {
+  const formattedDate = new Date(createdAt).toLocaleDateString(locale, {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -136,10 +197,12 @@ export function AlbumCard({
 
   const CardContent = (
     <Card
+      $isRtl={isRtl}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      whileHover={{ y: -5 }}
+      whileHover={{ y: -8, scale: 1.02 }}
+      whileTap={{ y: -6, scale: 1.01 }}
     >
       <ImageContainer>
         {coverImage && (
@@ -152,10 +215,10 @@ export function AlbumCard({
           />
         )}
         <PhotoCountBadge>
-          {photoCount} {photoCount === 1 ? "photo" : "photos"}
+          {photoCount} {photoCount === 1 ? t("photo") : t("photos")}
         </PhotoCountBadge>
       </ImageContainer>
-      <Content>
+      <Content $isRtl={isRtl}>
         <Title>{name}</Title>
         <DateText>{formattedDate}</DateText>
         {description && <Description>{description}</Description>}
@@ -165,7 +228,7 @@ export function AlbumCard({
           rel="noopener noreferrer"
           onClick={(e) => e.stopPropagation()}
         >
-          View on Facebook
+          {t("viewOnFacebook")}
         </FacebookLink>
       </Content>
     </Card>

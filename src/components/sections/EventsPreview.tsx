@@ -69,8 +69,6 @@ export function EventsPreview() {
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
     .slice(0, 3);
 
-  console.log("All events:", upcomingEvents);
-
   return (
     <EventsContainer>
       <EventsHeader>
