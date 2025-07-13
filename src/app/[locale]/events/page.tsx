@@ -4,23 +4,36 @@ import React from "react";
 import { useTranslations } from "next-intl";
 import styled from "styled-components";
 import { motion } from "framer-motion";
+import { PageContainer, PageTitle } from "@/components/ui/PageLayout";
 import { FacebookEventsGrid } from "@/components/sections/FacebookEventsGrid";
 
-const PageContainer = styled.div`
+const PageWrapper = styled.div`
+  position: relative;
+  width: 100%;
   min-height: 100vh;
-  padding: calc(${({ theme }) => theme.spacing.xxl} + 140px)
-    ${({ theme }) => theme.spacing.lg} ${({ theme }) => theme.spacing.xxl};
-  background: linear-gradient(
-    135deg,
-    ${({ theme }) => theme.colors.background} 0%,
-    ${({ theme }) => `${theme.colors.primary}15`} 100%
-  );
+  overflow: hidden;
+`;
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    padding-top: calc(${({ theme }) => theme.spacing.xl} + 140px);
-    padding-left: ${({ theme }) => theme.spacing.md};
-    padding-right: ${({ theme }) => theme.spacing.md};
-  }
+const OrbsContainer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+`;
+
+const FloatingOrb = styled(motion.div)`
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+  opacity: 0.15;
+  mix-blend-mode: screen;
+  will-change: transform;
 `;
 
 const Header = styled.div`
@@ -65,25 +78,65 @@ export default function EventsPage() {
   const t = useTranslations("events");
 
   return (
-    <PageContainer>
-      <Header>
-        <Title
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          {t("title")}
-        </Title>
-        <Description
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          {t("description")}
-        </Description>
-      </Header>
+    <PageWrapper>
+      <OrbsContainer>
+        <FloatingOrb
+          style={{
+            background: "linear-gradient(135deg, #ff0080 0%, #7928ca 100%)",
+            top: "20%",
+            left: "5%",
+          }}
+          animate={{
+            y: [0, -30, 0],
+            scale: [1, 1.1, 1],
+            opacity: [0.15, 0.2, 0.15],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
 
-      <FacebookEventsGrid />
-    </PageContainer>
+        <FloatingOrb
+          style={{
+            background: "linear-gradient(135deg, #00FFFF 0%, #7928ca 100%)",
+            bottom: "20%",
+            right: "5%",
+          }}
+          animate={{
+            y: [0, 30, 0],
+            scale: [1, 1.1, 1],
+            opacity: [0.15, 0.2, 0.15],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      </OrbsContainer>
+
+      <PageContainer>
+        <Header>
+          <Title
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            {t("title")}
+          </Title>
+          <Description
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            {t("description")}
+          </Description>
+        </Header>
+
+        <FacebookEventsGrid />
+      </PageContainer>
+    </PageWrapper>
   );
 }

@@ -178,7 +178,7 @@ const LocationDetails = styled.p`
 `;
 
 const FloatingOrb = styled(motion.div)`
-  position: fixed;
+  position: absolute;
   width: 400px;
   height: 400px;
   border-radius: 50%;
