@@ -6,7 +6,8 @@
     "about": "אודות",
     "book": "הזמנת שולחן",
     "contact": "צור קשר",
-    "faq": "שאלות נפוצות"
+    "faq": "שאלות נפוצות",
+    "menu": "תפריט"
   },
   "hero": {
     "title": "דיזייר קלאב",
@@ -158,5 +159,206 @@
     "tryAgain": "נסה שוב",
     "refresh": "רענן דף",
     "backHome": "חזרה הביתה"
+  },
+  "menu": {
+    "title": "התפריט שלנו",
+    "description": "גלו את מבחר המנות והמטעמים שלנו",
+    "note": "* כל המחירים כוללים מע\"מ",
+    "categories": {
+      "appetizers": "מנות ראשונות",
+      "hot_appetizers": "מנות ראשונות חמות",
+      "salads": "סלטים",
+      "main_courses": "מנות עיקריות",
+      "pizza_pasta": "פיצה ופסטה",
+      "desserts": "קינוחים",
+      "alcohol": "בר",
+      "vodka": "וודקה",
+      "rum": "רום",
+      "gin": "ג'ין",
+      "tequila": "טקילה",
+      "liquers": "ליקרים",
+      "aperitif_digestif": "אפריטיף ודז'סטיף",
+      "anis": "אניס",
+      "wine_and_sparkling": "יין ומבעבע"
+    },
+    "items": {
+      "beef_carpaccio": {
+        "name": "קרפצ'יו בקר",
+        "description": "נתחי פילה בקר דקים, חומץ בלסמי, צלפים, פרמזן"
+      },
+      "cheese_platter": {
+        "name": "פלטת גבינות",
+        "description": "5 סוגי גבינות נבחרות עם אגוזים, פירות יבשים ודבש"
+      },
+      "pickled_assortment": {
+        "name": "חמוצים ביתיים - מבחר",
+        "description": ""
+      },
+      "edamame": {
+        "name": "אדממה",
+        "description": ""
+      },
+      "focaccia": {
+        "name": "פוקצ'ה",
+        "description": "עם מטבלים"
+      },
+      "french_fries": {
+        "name": "צ'יפס",
+        "description": "לבחירה: רגיל/עם גבינה/עם גבינה ובייקון"
+      },
+      "ohm_fries": {
+        "name": "אום פרייז",
+        "description": "תפוחי אדמה ברוטב צ'ילי מתוק"
+      },
+      "stuffed_portobello": {
+        "name": "פטריות פורטובלו ממולאות",
+        "description": "3 פטריות פורטובלו ממולאות בגבינה ופסטו"
+      },
+      "calamari_rings": {
+        "name": "טבעות קלמרי",
+        "description": "מטוגנות בציפוי פריך, מוגש עם רוטב טרטר"
+      },
+      "fried_platter": {
+        "name": "פלטת מטוגנים",
+        "description": "טבעות בצל, בטטה פריי, צ'יפס וכדורי תפוחי אדמה"
+      },
+      "chicken_wings": {
+        "name": "כנפי עוף",
+        "description": "ברוטב ברביקיו"
+      },
+      "baked_nachos": {
+        "name": "נאצ'וס אפוי עם גבינה",
+        "description": "צ'יפס טורטיה תירס, מוגש עם מטבלים"
+      },
+      "fried_halloumi": {
+        "name": "חלומי מטוגן",
+        "description": ""
+      },
+      "caesar_salad": {
+        "name": "סלט קיסר",
+        "description": "עלי חסה, עגבניות שרי, קרוטונים, פרמזן. תוספות: חזה עוף, שרימפס/סלמון"
+      },
+      "greek_salad": {
+        "name": "סלט יווני",
+        "description": "עלי חסה, ירקות, זיתים, גבינת פטה"
+      },
+      "caprese_salad": {
+        "name": "סלט קפרזה",
+        "description": "עלי חסה, עגבניות שרי ומוצרלה בייבי"
+      },
+      "vegetable_assortment": {
+        "name": "מבחר ירקות טריים",
+        "description": "מיקס טרי של עלים וירקות"
+      },
+      "creamy_shrimp": {
+        "name": "שרימפס ברוטב שמנת",
+        "description": ""
+      },
+      "grilled_shrimp": {
+        "name": "שרימפס גדול על הגריל",
+        "description": ""
+      },
+      "seafood_mix": {
+        "name": "מיקס פירות ים ברוטב שמנת",
+        "description": "שרימפס, קלמרי ומולים"
+      },
+      "homemade_pelmeni": {
+        "name": "פלמני ביתי",
+        "description": ""
+      },
+      "potato_vareniki": {
+        "name": "ורניקי תפוחי אדמה",
+        "description": ""
+      },
+      "cheese_vareniki": {
+        "name": "ורניקי גבינה",
+        "description": ""
+      },
+      "desire_burger": {
+        "name": "דיזייר בורגר",
+        "description": "200/400 גרם בשר בקר נבחר עם תבלינים, מוגש עם צ'יפס. תוספות: גבינה/פטריות/בייקון/ביצת עין"
+      },
+      "halloumi_burger": {
+        "name": "בורגר חלומי",
+        "description": "בורגר במילוי חלומי מתובל, מוגש עם בטטה פריי"
+      },
+      "fish_and_chips": {
+        "name": "פיש אנד צ'יפס",
+        "description": "דג לבן בציפוי פריך"
+      },
+      "turkey_strips": {
+        "name": "רצועות הודו",
+        "description": "מוגש עם צ'יפס"
+      },
+      "chicken_steak": {
+        "name": "סטייק עוף (פרגית)",
+        "description": "ירך עוף עסיסית, צלויה על הגריל, מוגש עם תוספת"
+      },
+      "chorizo": {
+        "name": "צ'וריסו",
+        "description": "נקניקיות עגל, מוגש עם תוספת"
+      },
+      "entrecote_steak": {
+        "name": "סטייק אנטריקוט",
+        "description": "200/400 גרם, מוגש עם תוספת"
+      },
+      "margherita_pizza": {
+        "name": "פיצה מרגריטה",
+        "description": "תוספות: פטה/פטריות/בצל/עגבניות"
+      },
+      "meat_pizza": {
+        "name": "פיצה בשרים",
+        "description": "עגבניות, בייקון, צ'וריסו, מוצרלה"
+      },
+      "shrimp_special_pizza": {
+        "name": "פיצה ספיישל שרימפס",
+        "description": "עגבניות, שרימפס, מוצרלה"
+      },
+      "napolitana_pizza": {
+        "name": "פיצה נפוליטנה",
+        "description": "אנשובי, פלפל צ'יפוטלה, מוצרלה"
+      },
+      "greek_pizza": {
+        "name": "פיצה יוונית",
+        "description": "פלפל, זיתים, מוצרלה, בולגרית"
+      },
+      "fungi_pasta": {
+        "name": "פסטה פונגי",
+        "description": "עם פטריות ורוטב שמנת"
+      },
+      "seafood_pasta": {
+        "name": "פסטה פירות ים",
+        "description": "עם מיקס פירות ים (שרימפס, קלמרי ומולים) ורוטב שמנת"
+      },
+      "triple_chocolate": {
+        "name": "שוקולד משולש",
+        "description": ""
+      },
+      "toffee_crunch": {
+        "name": "טופי קראנץ'",
+        "description": ""
+      },
+      "red_velvet": {
+        "name": "רד ולווט",
+        "description": ""
+      },
+      "apple_pie": {
+        "name": "פאי תפוחים",
+        "description": ""
+      },
+      "creme_brulee": {
+        "name": "קרם ברולה",
+        "description": ""
+      },
+      "passion_fruit": {
+        "name": "קינוח פסיפלורה",
+        "description": ""
+      },
+      "fruit_platter": {
+        "name": "פלטת פירות",
+        "description": ""
+      }
+    },
+    "note": "פריטי התפריט עשויים להשתנות. אנא שאלו את המלצר לגבי המבחר הנוכחי."
   }
 }
