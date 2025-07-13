@@ -211,6 +211,80 @@ Fetches photos from your Facebook page with enhanced metadata and engagement dat
 }
 ```
 
+### Albums: `/api/facebook/albums`
+
+Fetch photo albums from the Facebook page with cover photos and metadata.
+
+**Parameters:**
+
+- `limit` (optional): Number of albums to fetch (default: 25)
+- `after` (optional): Pagination cursor for next page
+- `before` (optional): Pagination cursor for previous page
+
+**Response Structure:**
+
+```json
+{
+  "data": [
+    {
+      "id": "album_id",
+      "name": "Album Name",
+      "description": "Album description",
+      "privacy": "EVERYONE",
+      "created_time": "2023-01-01T00:00:00Z",
+      "updated_time": "2023-01-01T00:00:00Z",
+      "count": 25,
+      "type": "normal",
+      "can_upload": false,
+      "link": "https://www.facebook.com/album/link",
+      "cover_photo": {
+        "id": "cover_photo_id",
+        "name": "Cover photo description",
+        "picture": "cover_thumbnail_url",
+        "source": "cover_full_url",
+        "images": [
+          {
+            "height": 720,
+            "width": 960,
+            "source": "cover_image_url"
+          }
+        ],
+        "created_time": "2023-01-01T00:00:00Z"
+      },
+      "from": {
+        "id": "page_id",
+        "name": "Page Name"
+      },
+      "place": {
+        "id": "place_id",
+        "name": "Location Name",
+        "location": {
+          "city": "City",
+          "country": "Country",
+          "latitude": 12.345,
+          "longitude": 67.89
+        }
+      }
+    }
+  ],
+  "paging": {
+    "cursors": {
+      "before": "cursor_string",
+      "after": "cursor_string"
+    },
+    "next": "next_page_url",
+    "previous": "previous_page_url"
+  },
+  "metadata": {
+    "api_version": "v23.0",
+    "timestamp": "2023-01-01T00:00:00Z",
+    "total_items": 15,
+    "has_next_page": true,
+    "has_previous_page": false
+  }
+}
+```
+
 ### Batch Requests: `/api/facebook/batch`
 
 Efficiently fetch both events and photos in a single API call using Facebook's batch request feature.

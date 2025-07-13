@@ -1,12 +1,62 @@
 import {
   FacebookEvent,
   FacebookPhoto,
+  FacebookAlbum,
   TransformedEvent,
   TransformedPhoto,
+  TransformedAlbum,
   FacebookPlace,
   BatchRequestItem,
   BatchResponse,
 } from "@/types/facebook";
+
+/**
+ * Transform Facebook album data into frontend-ready format
+ */
+export function transformFacebookAlbum(album: FacebookAlbum): TransformedAlbum {
+  const coverImage =
+    album.cover_photo?.images?.find((img) => img.width >= 600)?.source ||
+    album.cover_photo?.source ||
+    album.cover_photo?.picture;
+
+  return {
+    id: album.id,
+    name: album.name,
+    description: album.description,
+    photoCount: album.count || 0,
+    createdAt: new Date(album.created_time || Date.now()),
+    updatedAt: album.updated_time ? new Date(album.updated_time) : undefined,
+    coverImage,
+    coverImageSizes:
+      album.cover_photo?.images?.map((img) => ({
+        width: img.width,
+        height: img.height,
+        url: img.source,
+      })) || [],
+    type: album.type || "normal",
+    privacy: album.privacy,
+    canUpload: album.can_upload || false,
+    facebookUrl:
+      album.link || `https://www.facebook.com/album.php?fbid=${album.id}`,
+    ownerName: album.from?.name,
+    ownerId: album.from?.id,
+    place: album.place
+      ? {
+          name: album.place.name,
+          location: album.place.location
+            ? {
+                city: album.place.location.city,
+                country: album.place.location.country,
+                coordinates: {
+                  latitude: album.place.location.latitude,
+                  longitude: album.place.location.longitude,
+                },
+              }
+            : undefined,
+        }
+      : undefined,
+  };
+}
 
 /**
  * Transform Facebook event data into frontend-ready format
@@ -318,4 +368,82 @@ export function isEventThisWeek(event: FacebookEvent): boolean {
     (eventEnd >= weekStart && eventEnd <= weekEnd) ||
     (eventStart < weekStart && eventEnd > weekEnd)
   );
+}
+
+/**
+ * Filter albums by date range
+ */
+export function filterAlbumsByDateRange(
+  albums: TransformedAlbum[],
+  startDate: Date,
+  endDate: Date
+): TransformedAlbum[] {
+  return albums.filter(
+    (album) => album.createdAt >= startDate && album.createdAt <= endDate
+  );
+}
+
+/**
+ * Filter albums by minimum photo count
+ */
+export function filterAlbumsByPhotoCount(
+  albums: TransformedAlbum[],
+  minCount: number
+): TransformedAlbum[] {
+  return albums.filter((album) => album.photoCount >= minCount);
+}
+
+/**
+ * Sort albums by creation date (newest first)
+ */
+export function sortAlbumsByDate(
+  albums: TransformedAlbum[],
+  ascending = false
+): TransformedAlbum[] {
+  return [...albums].sort((a, b) => {
+    const timeA = a.createdAt.getTime();
+    const timeB = b.createdAt.getTime();
+    return ascending ? timeA - timeB : timeB - timeA;
+  });
+}
+
+/**
+ * Sort albums by photo count (most photos first)
+ */
+export function sortAlbumsByPhotoCount(
+  albums: TransformedAlbum[],
+  ascending = false
+): TransformedAlbum[] {
+  return [...albums].sort((a, b) => {
+    return ascending
+      ? a.photoCount - b.photoCount
+      : b.photoCount - a.photoCount;
+  });
+}
+
+/**
+ * Get best cover image for an album based on desired size
+ */
+export function getBestAlbumCoverImage(
+  album: TransformedAlbum,
+  targetWidth = 400
+): string | undefined {
+  if (!album.coverImageSizes.length) {
+    return album.coverImage;
+  }
+
+  // Find the image size closest to target width but not smaller
+  const suitableImage = album.coverImageSizes
+    .filter((img) => img.width >= targetWidth)
+    .sort((a, b) => a.width - b.width)[0];
+
+  // If no suitable image found, use the largest available
+  if (!suitableImage) {
+    const largestImage = album.coverImageSizes.sort(
+      (a, b) => b.width - a.width
+    )[0];
+    return largestImage?.url;
+  }
+
+  return suitableImage.url;
 }

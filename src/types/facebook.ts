@@ -58,13 +58,29 @@ export interface FacebookAlbum {
   name: string;
   type?: string;
   description?: string;
+  privacy?: string;
   created_time?: string;
   updated_time?: string;
   count?: number;
   cover_photo?: {
     id: string;
-    source: string;
+    name?: string;
+    picture: string;
+    source?: string;
+    images?: Array<{
+      height: number;
+      width: number;
+      source: string;
+    }>;
+    created_time?: string;
   };
+  from?: {
+    id: string;
+    name: string;
+  };
+  place?: FacebookPlace;
+  can_upload?: boolean;
+  link?: string;
 }
 
 export interface FacebookSummary {
@@ -133,6 +149,12 @@ export interface FacebookEventsResponse {
 
 export interface FacebookPhotosResponse {
   data: FacebookPhoto[];
+  paging?: FacebookPaging;
+  metadata?: FacebookResponseMetadata;
+}
+
+export interface FacebookAlbumsResponse {
+  data: FacebookAlbum[];
   paging?: FacebookPaging;
   metadata?: FacebookResponseMetadata;
 }
@@ -210,6 +232,38 @@ export interface TransformedPhoto {
     tags: number;
   };
   facebookUrl: string;
+}
+
+export interface TransformedAlbum {
+  id: string;
+  name: string;
+  description?: string;
+  photoCount: number;
+  createdAt: Date;
+  updatedAt?: Date;
+  coverImage?: string;
+  coverImageSizes: Array<{
+    width: number;
+    height: number;
+    url: string;
+  }>;
+  type: string;
+  privacy?: string;
+  canUpload: boolean;
+  facebookUrl: string;
+  ownerName?: string;
+  ownerId?: string;
+  place?: {
+    name: string;
+    location?: {
+      city: string;
+      country: string;
+      coordinates: {
+        latitude: number;
+        longitude: number;
+      };
+    };
+  };
 }
 
 // Batch Request Types
