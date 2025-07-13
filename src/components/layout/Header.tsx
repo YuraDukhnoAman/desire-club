@@ -424,6 +424,7 @@ export function Header() {
     { href: "/book", label: t("book") },
     { href: "/contact", label: t("contact") },
     { href: "/faq", label: t("faq") },
+    { href: "/menu", label: t("menu") },
   ];
 
   useEffect(() => {
