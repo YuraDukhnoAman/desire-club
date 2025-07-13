@@ -3,12 +3,28 @@ import {
   FacebookPhoto,
   TransformedEvent,
   TransformedPhoto,
+  FacebookPlace,
+  BatchRequestItem,
+  BatchResponse,
 } from "@/types/facebook";
 
 /**
  * Transform Facebook event data into frontend-ready format
  */
 export function transformFacebookEvent(event: FacebookEvent): TransformedEvent {
+  const locationDetails = event.place?.location
+    ? {
+        name: event.place.name,
+        address: event.place.location.street,
+        city: event.place.location.city,
+        country: event.place.location.country,
+        coordinates: {
+          latitude: event.place.location.latitude,
+          longitude: event.place.location.longitude,
+        },
+      }
+    : undefined;
+
   return {
     id: event.id,
     title: event.name,
@@ -16,7 +32,14 @@ export function transformFacebookEvent(event: FacebookEvent): TransformedEvent {
     endDate: event.end_time ? new Date(event.end_time) : undefined,
     description: event.description,
     location: event.place?.name,
+    locationDetails,
     coverImage: event.cover?.source,
+    isOnline: event.is_online,
+    isCanceled: event.is_canceled,
+    ticketUrl: event.ticket_uri,
+    attendingCount: event.attending_count,
+    interestedCount: event.interested_count,
+    timezone: event.timezone,
     facebookUrl: `https://www.facebook.com/events/${event.id}`,
   };
 }
@@ -25,16 +48,44 @@ export function transformFacebookEvent(event: FacebookEvent): TransformedEvent {
  * Transform Facebook photo data into frontend-ready format
  */
 export function transformFacebookPhoto(photo: FacebookPhoto): TransformedPhoto {
+  const locationDetails = photo.place?.location
+    ? {
+        name: photo.place.name,
+        address: photo.place.location.street,
+        city: photo.place.location.city,
+        country: photo.place.location.country,
+        coordinates: {
+          latitude: photo.place.location.latitude,
+          longitude: photo.place.location.longitude,
+        },
+      }
+    : undefined;
+
   return {
     id: photo.id,
     createdAt: new Date(photo.created_time),
+    updatedAt: photo.updated_time ? new Date(photo.updated_time) : undefined,
     caption: photo.name,
+    altText: photo.alt_text,
+    dimensions:
+      photo.height && photo.width
+        ? { height: photo.height, width: photo.width }
+        : undefined,
     images: photo.images.map((img) => ({
       height: img.height,
       width: img.width,
       url: img.source,
     })),
     albumName: photo.album?.name,
+    albumId: photo.album?.id,
+    location: photo.place?.name,
+    locationDetails,
+    engagement: {
+      likes: photo.likes?.summary?.total_count || 0,
+      comments: photo.comments?.summary?.total_count || 0,
+      reactions: photo.reactions?.summary?.total_count || 0,
+      tags: photo.tags?.summary?.total_count || 0,
+    },
     facebookUrl: `https://www.facebook.com/photo/?fbid=${photo.id}`,
   };
 }
@@ -70,15 +121,52 @@ export function getThumbnailImage(
 }
 
 /**
+ * Get medium size image from Facebook photo images array
+ */
+export function getMediumImage(
+  images: Array<{ height: number; width: number; source: string }>
+) {
+  if (!images || images.length === 0) return null;
+
+  // Target around 720p (518,400 pixels)
+  const targetPixels = 518400;
+
+  const sortedImages = images.sort((a, b) => {
+    const aPixels = a.width * a.height;
+    const bPixels = b.width * b.height;
+    const aDiff = Math.abs(aPixels - targetPixels);
+    const bDiff = Math.abs(bPixels - targetPixels);
+    return aDiff - bDiff;
+  });
+
+  return sortedImages[0];
+}
+
+/**
  * Filter upcoming events (events that haven't ended yet)
  */
 export function filterUpcomingEvents(events: FacebookEvent[]): FacebookEvent[] {
   const now = new Date();
   return events.filter((event) => {
+    if (event.is_canceled) return false;
+
     const eventDate = event.end_time
       ? new Date(event.end_time)
       : new Date(event.start_time);
     return eventDate > now;
+  });
+}
+
+/**
+ * Filter past events
+ */
+export function filterPastEvents(events: FacebookEvent[]): FacebookEvent[] {
+  const now = new Date();
+  return events.filter((event) => {
+    const eventDate = event.end_time
+      ? new Date(event.end_time)
+      : new Date(event.start_time);
+    return eventDate <= now;
   });
 }
 
@@ -99,5 +187,135 @@ export function sortPhotosByDate(photos: FacebookPhoto[]): FacebookPhoto[] {
   return photos.sort(
     (a, b) =>
       new Date(b.created_time).getTime() - new Date(a.created_time).getTime()
+  );
+}
+
+/**
+ * Group photos by album
+ */
+export function groupPhotosByAlbum(
+  photos: FacebookPhoto[]
+): Record<string, FacebookPhoto[]> {
+  return photos.reduce((acc, photo) => {
+    const albumId = photo.album?.id || "no-album";
+    if (!acc[albumId]) {
+      acc[albumId] = [];
+    }
+    acc[albumId].push(photo);
+    return acc;
+  }, {} as Record<string, FacebookPhoto[]>);
+}
+
+/**
+ * Create batch request for Facebook Graph API
+ */
+export function createBatchRequest(
+  items: BatchRequestItem[],
+  accessToken: string,
+  includeHeaders = false
+): string {
+  const batchData = items.map((item) => ({
+    method: item.method,
+    relative_url: item.relative_url,
+    ...(item.body && { body: item.body }),
+    ...(item.headers && { headers: item.headers }),
+  }));
+
+  const params = new URLSearchParams({
+    access_token: accessToken,
+    batch: JSON.stringify(batchData),
+    ...(includeHeaders && { include_headers: "true" }),
+  });
+
+  return `https://graph.facebook.com/v23.0/?${params.toString()}`;
+}
+
+/**
+ * Parse batch response from Facebook Graph API
+ */
+export function parseBatchResponse(response: BatchResponse[]): any[] {
+  return response.map((item) => {
+    if (item.code === 200) {
+      try {
+        return JSON.parse(item.body);
+      } catch (error) {
+        console.error("Failed to parse batch response item:", error);
+        return null;
+      }
+    } else {
+      console.error(`Batch request failed with code ${item.code}:`, item.body);
+      return null;
+    }
+  });
+}
+
+/**
+ * Build Facebook Graph API URL with pagination
+ */
+export function buildFacebookUrl(
+  version: string,
+  path: string,
+  params: Record<string, string | number | boolean | undefined>
+): string {
+  const cleanParams = Object.entries(params)
+    .filter(([_, value]) => value !== undefined)
+    .reduce((acc, [key, value]) => {
+      acc[key] = String(value);
+      return acc;
+    }, {} as Record<string, string>);
+
+  const searchParams = new URLSearchParams(cleanParams);
+  return `https://graph.facebook.com/${version}/${path}?${searchParams.toString()}`;
+}
+
+/**
+ * Format location string from Facebook place data
+ */
+export function formatLocation(place?: FacebookPlace): string {
+  if (!place) return "";
+
+  if (!place.location) return place.name;
+
+  const parts = [place.name];
+
+  if (place.location.street) parts.push(place.location.street);
+  if (place.location.city) parts.push(place.location.city);
+  if (place.location.state) parts.push(place.location.state);
+  if (place.location.country) parts.push(place.location.country);
+
+  return parts.join(", ");
+}
+
+/**
+ * Check if an event is happening today
+ */
+export function isEventToday(event: FacebookEvent): boolean {
+  const today = new Date();
+  const eventStart = new Date(event.start_time);
+  const eventEnd = event.end_time ? new Date(event.end_time) : eventStart;
+
+  return (
+    eventStart.toDateString() === today.toDateString() ||
+    eventEnd.toDateString() === today.toDateString() ||
+    (eventStart < today && eventEnd > today)
+  );
+}
+
+/**
+ * Check if an event is happening this week
+ */
+export function isEventThisWeek(event: FacebookEvent): boolean {
+  const now = new Date();
+  const weekStart = new Date(now.setDate(now.getDate() - now.getDay()));
+  const weekEnd = new Date(weekStart);
+  weekEnd.setDate(weekStart.getDate() + 6);
+
+  const eventStart = new Date(event.start_time);
+  const eventEnd = event.end_time ? new Date(event.end_time) : eventStart;
+
+  return (
+    (eventStart >= weekStart && eventStart <= weekEnd) ||
+    (eventEnd >= weekStart && eventEnd <= weekEnd) ||
+    (eventStart < weekStart && eventEnd > weekEnd)
   );
 }
