@@ -8,7 +8,7 @@ import { FacebookEventsGrid } from "@/components/sections/FacebookEventsGrid";
 
 const PageContainer = styled.div`
   min-height: 100vh;
-  padding: calc(${({ theme }) => theme.spacing.xxl} + 70px)
+  padding: calc(${({ theme }) => theme.spacing.xxl} + 140px)
     ${({ theme }) => theme.spacing.lg} ${({ theme }) => theme.spacing.xxl};
   background: linear-gradient(
     135deg,
@@ -17,7 +17,7 @@ const PageContainer = styled.div`
   );
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    padding-top: calc(${({ theme }) => theme.spacing.xl} + 70px);
+    padding-top: calc(${({ theme }) => theme.spacing.xl} + 140px);
     padding-left: ${({ theme }) => theme.spacing.md};
     padding-right: ${({ theme }) => theme.spacing.md};
   }

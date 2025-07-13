@@ -6,7 +6,8 @@
     "about": "About",
     "book": "Book Table",
     "contact": "Contact",
-    "faq": "FAQ"
+    "faq": "FAQ",
+    "menu": "Menu"
   },
   "hero": {
     "title": "Desire Club",
@@ -174,5 +175,206 @@
     "tryAgain": "Try Again",
     "refresh": "Refresh Page",
     "backHome": "Back to Home"
+  },
+  "menu": {
+    "title": "Menu",
+    "description": "Discover our selection of exquisite dishes and appetizers",
+    "note": "* All prices include VAT",
+    "categories": {
+      "appetizers": "Appetizers",
+      "hot_appetizers": "Hot Appetizers",
+      "salads": "Salads",
+      "main_courses": "Main Courses",
+      "pizza_pasta": "Pizza & Pasta",
+      "desserts": "Desserts",
+      "alcohol": "BAR",
+      "vodka": "VODKA",
+      "rum": "RUM",
+      "gin": "GIN",
+      "tequila": "TEQUILA",
+      "liquers": "LIQUEURS",
+      "aperitif_digestif": "APERITIF & DIGESTIF",
+      "anis": "ANIS",
+      "wine_and_sparkling": "WINE & SPARKLING"
+    },
+    "items": {
+      "beef_carpaccio": {
+        "name": "Beef Carpaccio",
+        "description": "thinly sliced beef fillet, balsamic vinegar, capers, parmesan"
+      },
+      "cheese_platter": {
+        "name": "Cheese Platter",
+        "description": "5 selected cheese varieties with nuts, dried fruits and honey"
+      },
+      "pickled_assortment": {
+        "name": "Homemade Pickled Assortment",
+        "description": ""
+      },
+      "edamame": {
+        "name": "Edamame",
+        "description": ""
+      },
+      "focaccia": {
+        "name": "Focaccia",
+        "description": "with dips"
+      },
+      "french_fries": {
+        "name": "French Fries",
+        "description": "choice of: plain/with cheese/with cheese and bacon"
+      },
+      "ohm_fries": {
+        "name": "Ohm Fries",
+        "description": "potatoes with sweet chili"
+      },
+      "stuffed_portobello": {
+        "name": "Stuffed Portobello Mushrooms",
+        "description": "3 Portobello mushrooms stuffed with cheese and pesto"
+      },
+      "calamari_rings": {
+        "name": "Calamari Rings",
+        "description": "breaded and fried, served with tartar sauce"
+      },
+      "fried_platter": {
+        "name": "Fried Appetizer Platter",
+        "description": "onion rings, sweet potato fries, french fries and potato balls"
+      },
+      "chicken_wings": {
+        "name": "Chicken Wings",
+        "description": "in BBQ sauce"
+      },
+      "baked_nachos": {
+        "name": "Baked Nachos with Cheese",
+        "description": "corn tortilla chips, served with dips"
+      },
+      "fried_halloumi": {
+        "name": "Fried Halloumi Cheese",
+        "description": ""
+      },
+      "caesar_salad": {
+        "name": "Caesar Salad",
+        "description": "lettuce leaves, cherry tomatoes, croutons, parmesan. Add: chicken fillet, shrimp/salmon"
+      },
+      "greek_salad": {
+        "name": "Greek Salad",
+        "description": "lettuce leaves, vegetables, olives, feta cheese"
+      },
+      "caprese_salad": {
+        "name": "Caprese Salad",
+        "description": "lettuce leaves, cherry tomatoes and baby mozzarella"
+      },
+      "vegetable_assortment": {
+        "name": "Fresh Vegetable Assortment",
+        "description": "fresh mix of greens and vegetables"
+      },
+      "creamy_shrimp": {
+        "name": "Shrimp in Cream Sauce",
+        "description": ""
+      },
+      "grilled_shrimp": {
+        "name": "Large Grilled Shrimp",
+        "description": ""
+      },
+      "seafood_mix": {
+        "name": "Seafood Mix in Cream Sauce",
+        "description": "shrimp, calamari and mussels"
+      },
+      "homemade_pelmeni": {
+        "name": "Homemade Pelmeni",
+        "description": ""
+      },
+      "potato_vareniki": {
+        "name": "Potato Vareniki",
+        "description": ""
+      },
+      "cheese_vareniki": {
+        "name": "Cheese Vareniki",
+        "description": ""
+      },
+      "desire_burger": {
+        "name": "Desire Burger",
+        "description": "200/400g selected beef with spices, served with french fries. Add: cheese/mushrooms/bacon/fried egg"
+      },
+      "halloumi_burger": {
+        "name": "Halloumi Burger",
+        "description": "burger with spiced halloumi filling, served with sweet potato fries"
+      },
+      "fish_and_chips": {
+        "name": "Fish & Chips",
+        "description": "breaded white fish"
+      },
+      "turkey_strips": {
+        "name": "Turkey Strips",
+        "description": "served with french fries"
+      },
+      "chicken_steak": {
+        "name": "Chicken Steak (Pargit)",
+        "description": "tender chicken thigh, grilled, served with a side dish"
+      },
+      "chorizo": {
+        "name": "Chorizo",
+        "description": "veal sausages, served with a side dish"
+      },
+      "entrecote_steak": {
+        "name": "Entrecote Steak",
+        "description": "200/400g, served with a side dish"
+      },
+      "margherita_pizza": {
+        "name": "Margherita Pizza",
+        "description": "Add: feta/mushrooms/onions/tomatoes"
+      },
+      "meat_pizza": {
+        "name": "Meat Pizza",
+        "description": "tomatoes, bacon, chorizo, mozzarella"
+      },
+      "shrimp_special_pizza": {
+        "name": "Special Shrimp Pizza",
+        "description": "tomatoes, shrimp, mozzarella"
+      },
+      "napolitana_pizza": {
+        "name": "Napolitana Pizza",
+        "description": "anchovies, chipotle pepper, mozzarella"
+      },
+      "greek_pizza": {
+        "name": "Greek Pizza",
+        "description": "bell peppers, olives, mozzarella, bulgarit"
+      },
+      "fungi_pasta": {
+        "name": "Fungi Pasta",
+        "description": "with mushrooms and cream sauce"
+      },
+      "seafood_pasta": {
+        "name": "Seafood Pasta",
+        "description": "with seafood mix (shrimp, calamari and mussels) and cream sauce"
+      },
+      "triple_chocolate": {
+        "name": "Triple Chocolate",
+        "description": ""
+      },
+      "toffee_crunch": {
+        "name": "Toffee Crunch",
+        "description": ""
+      },
+      "red_velvet": {
+        "name": "Red Velvet",
+        "description": ""
+      },
+      "apple_pie": {
+        "name": "Apple Pie",
+        "description": ""
+      },
+      "creme_brulee": {
+        "name": "Crème Brûlée",
+        "description": ""
+      },
+      "passion_fruit": {
+        "name": "Passion Fruit Dessert (Passiflora)",
+        "description": ""
+      },
+      "fruit_platter": {
+        "name": "Fruit Platter",
+        "description": ""
+      }
+    },
+    "note": "Menu items are subject to change. Please ask your server for the current selection."
   }
 }
