@@ -114,8 +114,6 @@ export function EventCard({
     day: "numeric",
   });
 
-  console.log("Rendering EventCard with image:", image); // Debug log
-
   return (
     <Card
       initial={{ opacity: 0, y: 20 }}

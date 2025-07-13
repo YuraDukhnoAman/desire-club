@@ -24,6 +24,8 @@
     "readMore": "Learn More",
     "free": "Free Entry",
     "viewEvents": "View All Events",
+    "loadMore": "Load More Events",
+    "loading": "Loading...",
     "all": "All Events",
     "types": {
       "standup": "Stand-up Comedy",
@@ -36,7 +38,18 @@
   },
   "gallery": {
     "title": "Gallery",
-    "description": "Glimpse into the electric atmosphere of Desire Club"
+    "description": "Glimpse into the electric atmosphere of Desire Club",
+    "albums": {
+      "title": "Photo Albums",
+      "description": "Explore moments from our events and celebrations at Desire Club",
+      "photo": "photo",
+      "photos": "photos",
+      "viewOnFacebook": "View on Facebook",
+      "loadMore": "Load More Albums",
+      "loading": "Loading...",
+      "error": "Failed to load photo albums",
+      "retry": "Try Again"
+    }
   },
   "about": {
     "title": "About Desire Club",
@@ -100,6 +113,8 @@
     "phone": "+972 50 210 2496",
     "email": "muraze@gmail.com",
     "copy": "Copy",
+    "hours": "Hours",
+    "hoursValue": "Open Daily 8:00 PM - 3:00 AM",
     "map": {
       "title": "Desire Club Location"
     },
