@@ -138,7 +138,7 @@ export function Footer() {
         <FooterSection>
           <FooterTitle>{t("nav.contact")}</FooterTitle>
           <FooterLink href="/contact">{t("nav.contact")}</FooterLink>
-          <FooterLink href="/faq">{t("nav.faq")}</FooterLink>
+
           <FooterLink href="/about">{t("nav.about")}</FooterLink>
         </FooterSection>
       </FooterContent>
