@@ -11,7 +11,6 @@ A multilingual MVP website for Desire Club, a music nightclub located in Tel Avi
 - 📸 Image gallery
 - 🎫 Table booking system
 - 📍 Location information
-- ❓ FAQ section
 
 ## Tech Stack
 
