@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/Button";
 import { Particles } from "@tsparticles/react";
 import { type Container, type ISourceOptions } from "@tsparticles/engine";
 import { loadSlim } from "@tsparticles/slim";
+import { HeroEvents } from "./HeroEvents";
 
 const HeroContainer = styled.section`
   min-height: 100vh;
@@ -20,7 +21,9 @@ const HeroContainer = styled.section`
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  padding: ${({ theme }) => theme.spacing.xl} ${({ theme }) => theme.spacing.lg};
+  padding: ${({ theme }) => theme.spacing.xxl}
+    ${({ theme }) => theme.spacing.lg} ${({ theme }) => theme.spacing.xl};
+  margin-top: 80px; /* Add margin to avoid header overlap */
 
   &::before {
     content: "";
@@ -220,6 +223,7 @@ export function Hero() {
             </Button>
           </HeroActions>
         </HeroContent>
+        <HeroEvents />
       </GlassCard>
     </HeroContainer>
   );
