@@ -32,8 +32,11 @@
       "karaoke": "Караоке",
       "quiz": "Квиз",
       "party": "Вечеринка",
-      "mom": "Музыкальный Open Mic"
-    }
+      "mom": "Музыкальный Open Mic",
+      "facebook": "Событие Facebook"
+    },
+    "upcomingEvents": "Предстоящие события",
+    "viewAllEvents": "Смотреть все события"
   },
   "gallery": {
     "title": "Галерея",

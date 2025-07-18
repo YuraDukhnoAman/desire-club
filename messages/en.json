@@ -33,8 +33,11 @@
       "karaoke": "Karaoke Night",
       "quiz": "Quiz Night",
       "party": "Party Night",
-      "mom": "Musical Open Mic"
-    }
+      "mom": "Musical Open Mic",
+      "facebook": "Facebook Event"
+    },
+    "upcomingEvents": "Upcoming Events",
+    "viewAllEvents": "View All Events"
   },
   "gallery": {
     "title": "Gallery",

@@ -101,7 +101,6 @@ export function EventsPreview() {
             date={event.date}
             time={event.time}
             description={event.translations[locale].description}
-            price={event.price}
             type={event.type}
             image={event.image}
             bookingUrl={event.bookingUrl}

@@ -56,13 +56,6 @@ const Description = styled.p`
   overflow: hidden;
 `;
 
-const Price = styled.p`
-  font-size: ${({ theme }) => theme.typography.fontSize.lg};
-  color: ${({ theme }) => theme.colors.secondary};
-  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
-  margin-bottom: ${({ theme }) => theme.spacing.md};
-`;
-
 const Type = styled.span`
   background: ${({ theme }) => `${theme.colors.primary}15`};
   color: ${({ theme }) => theme.colors.primary};
@@ -87,7 +80,6 @@ interface EventCardProps {
   date: string;
   time: string;
   description: string;
-  price: number;
   type: string;
   image: string;
   bookingUrl: string;
@@ -100,7 +92,6 @@ export function EventCard({
   date,
   time,
   description,
-  price,
   type,
   image,
   bookingUrl,
@@ -139,7 +130,6 @@ export function EventCard({
           {time}
         </DateText>
         <Description>{description}</Description>
-        <Price>{price > 0 ? `₪${price}` : t("free")}</Price>
         <Actions>
           <Button
             variant="primary"
