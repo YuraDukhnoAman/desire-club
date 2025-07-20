@@ -520,6 +520,7 @@ export function Header() {
     { href: "/about", label: t("about") },
     { href: "/book", label: t("book") },
     { href: "/contact", label: t("contact") },
+    { href: "/reviews", label: t("reviews") },
     { href: "/menu", label: t("menu") },
   ];
 
