@@ -49,10 +49,11 @@ export async function GET(request: NextRequest) {
   console.log("API route called: /api/google-reviews");
 
   try {
-    // Get pagination parameters
+    // Get pagination and language parameters
     const { searchParams } = new URL(request.url);
     const pageToken = searchParams.get("pageToken");
     const maxResults = parseInt(searchParams.get("maxResults") || "20"); // Default 20 reviews
+    const languageCode = searchParams.get("languageCode") || "en"; // Default English
 
     // Check for Google Maps API key (for Places API)
     const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
@@ -76,7 +77,7 @@ export async function GET(request: NextRequest) {
       console.log("Using Google Places API...");
 
       // Build URL - Google Places API returns max 5 reviews by default
-      const placesUrl = `https://places.googleapis.com/v1/places/${placeId}?fields=reviews,rating,userRatingCount&key=${googleMapsApiKey}`;
+      const placesUrl = `https://places.googleapis.com/v1/places/${placeId}?fields=reviews,rating,userRatingCount&languageCode=${languageCode}&key=${googleMapsApiKey}`;
 
       const placesResponse = await fetch(placesUrl);
 
@@ -105,6 +106,7 @@ export async function GET(request: NextRequest) {
         averageRating: placesData.rating,
         totalReviewCount: placesData.userRatingCount,
         source: "Google Places API (New)",
+        language: languageCode,
         pagination: {
           hasMore: false, // Google Places API only returns 5 reviews max
           totalAvailable: placesData.userRatingCount,

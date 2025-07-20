@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 
 interface Review {
   id: string;
@@ -187,6 +187,7 @@ const StatLabel = styled.div`
 
 export function GoogleReviews() {
   const t = useTranslations("reviews");
+  const locale = useLocale();
   const [reviews, setReviews] = useState<Review[]>([]);
   const [stats, setStats] = useState<{
     averageRating?: number;
@@ -202,7 +203,9 @@ export function GoogleReviews() {
         setLoading(true);
         setError(null);
 
-        const response = await fetch("/api/google-reviews");
+        const response = await fetch(
+          `/api/google-reviews/?languageCode=${locale}`
+        );
 
         if (!response.ok) {
           throw new Error("Failed to fetch reviews");
