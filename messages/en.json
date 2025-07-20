@@ -6,7 +6,7 @@
     "about": "About",
     "book": "Book Table",
     "contact": "Contact",
-
+    "reviews": "Reviews",
     "menu": "Menu"
   },
   "hero": {
@@ -154,6 +154,11 @@
     "tryAgain": "Try Again",
     "refresh": "Refresh Page",
     "backHome": "Back to Home"
+  },
+  "reviews": {
+    "title": "Customer Reviews",
+    "description": "See what our guests are saying about their experiences at Desire Club",
+    "comingSoon": "Reviews coming soon! We're working on integrating Google Reviews to show you what our guests think about us."
   },
   "menu": {
     "title": "Menu",
