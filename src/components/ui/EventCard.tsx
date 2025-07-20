@@ -87,15 +87,12 @@ interface EventCardProps {
 }
 
 export function EventCard({
-  id,
   title,
   date,
   time,
   description,
   type,
   image,
-  bookingUrl,
-  featured = false,
 }: EventCardProps) {
   const t = useTranslations("events");
   const locale = useLocale();
@@ -134,8 +131,26 @@ export function EventCard({
           <Button
             variant="primary"
             size="medium"
-            href={`/${locale}/book`}
+            href={`/${locale}/book?event=${encodeURIComponent(
+              title
+            )}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(
+              time
+            )}`}
             external={false}
+            onClick={() => {
+              console.log("EventCard - Button clicked");
+              console.log("EventCard - Event title:", title);
+              console.log("EventCard - Event date:", date);
+              console.log("EventCard - Event time:", time);
+              console.log(
+                "EventCard - Generated URL:",
+                `/${locale}/book?event=${encodeURIComponent(
+                  title
+                )}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(
+                  time
+                )}`
+              );
+            }}
           >
             {t("bookNow")}
           </Button>

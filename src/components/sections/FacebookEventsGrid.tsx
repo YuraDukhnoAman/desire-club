@@ -207,27 +207,7 @@ function extractPrice(description: string): number {
 
 // Function to get cover image from event
 function getEventImage(event: FacebookEvent): string {
-  if (event.cover?.source) {
-    return event.cover.source;
-  }
-
-  // Fallback images based on event type
-  const type = determineEventType(event);
-  const fallbackImages = {
-    live: "/assets/ui/backgrounds/about/live-concerts/514728464_1300841482046548_6550638706408135999_n.jpg",
-    standup:
-      "/assets/ui/backgrounds/about/standup/500331705_1271017951695568_3759745623717392760_n.jpg",
-    party:
-      "/assets/ui/backgrounds/about/disco/492231185_1243597314437632_4946434647322291015_n.jpg",
-    karaoke:
-      "/assets/ui/backgrounds/events/karaoke/514487653_1301575825306447_3668275234757971734_n.jpg",
-    quiz: "/assets/ui/backgrounds/events/kviz/514017682_1039077668330128_1972127480873474881_n.jpg",
-    mom: "/assets/ui/backgrounds/about/mom/492522651_1242690481194982_8592720461180068310_n.jpg",
-  };
-
-  return (
-    fallbackImages[type as keyof typeof fallbackImages] || fallbackImages.party
-  );
+  return event.cover?.source || "";
 }
 
 export function FacebookEventsGrid() {
@@ -305,12 +285,17 @@ export function FacebookEventsGrid() {
         date:
           event.start_time?.split("T")[0] ||
           new Date().toISOString().split("T")[0],
-        time: event.start_time
-          ? new Date(event.start_time).toLocaleTimeString(locale, {
-              hour: "2-digit",
-              minute: "2-digit",
-            })
-          : "20:00",
+        time: (() => {
+          if (event.start_time) {
+            const date = new Date(event.start_time);
+            const hours = date.getHours().toString().padStart(2, "0");
+            const minutes = date.getMinutes().toString().padStart(2, "0");
+
+            return `${hours}:${minutes}`;
+          } else {
+            return "20:00";
+          }
+        })(),
         description: event.description || "",
         price,
         type,
@@ -400,7 +385,6 @@ export function FacebookEventsGrid() {
                   date={event.date}
                   time={event.time}
                   description={event.description}
-                  price={event.price}
                   type={event.type}
                   image={event.image}
                   bookingUrl={event.bookingUrl}

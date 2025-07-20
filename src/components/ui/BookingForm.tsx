@@ -1,7 +1,7 @@
-import { useState, FormEvent, ChangeEvent } from "react";
+import { useState, FormEvent, ChangeEvent, useEffect } from "react";
 import styled from "styled-components";
 import { useTranslations } from "next-intl";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 
 // Types
 interface BookingFormProps {
@@ -213,7 +213,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({
   const t = useTranslations("book");
   const tf = useTranslations("book.form");
   const params = useParams();
-  const locale = params.locale as string;
+  const searchParams = useSearchParams();
 
   const [formData, setFormData] = useState<BookingFormData>({
     name: "",
@@ -223,6 +223,34 @@ export const BookingForm: React.FC<BookingFormProps> = ({
     time: "",
     comment: "",
   });
+  // Read URL parameters and pre-fill form
+  useEffect(() => {
+    const eventTitle = searchParams.get("event");
+    const eventDate = searchParams.get("date");
+    let eventTime = searchParams.get("time");
+    if (eventTime && /[ap]m/i.test(eventTime)) {
+      // Convert "08:00 PM" to "20:00"
+      const [raw, period] = eventTime.split(/ /);
+      let [h, m] = raw.split(":").map(Number);
+      if (/pm/i.test(period) && h < 12) h += 12;
+      if (/am/i.test(period) && h === 12) h = 0;
+      eventTime = `${h.toString().padStart(2, "0")}:${m
+        .toString()
+        .padStart(2, "0")}`;
+    }
+
+    if (eventTitle || eventDate || eventTime) {
+      const newFormData = {
+        ...formData,
+        ...(eventDate && { date: eventDate }),
+        ...(eventTime && { time: eventTime }),
+        ...(eventTitle && { comment: `Event: ${eventTitle}` }),
+      };
+      setFormData(newFormData);
+    } else {
+      console.log("BookingForm - No URL parameters found");
+    }
+  }, [searchParams]);
 
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -239,64 +267,81 @@ export const BookingForm: React.FC<BookingFormProps> = ({
 
     const rtlMarker = isRtl ? "\u200F" : "";
     const hour = new Date().getHours();
-    let greeting = "";
     let message = "";
 
-    if (params.locale === "he") {
-      greeting =
-        hour < 12
-          ? "בוקר טוב"
-          : hour < 17
-          ? "צהריים טובים"
-          : hour < 21
-          ? "ערב טוב"
-          : "לילה טוב";
-      message = `${greeting}
+    const buildWhatsappMessage = (
+      locale: string,
+      formData: BookingFormData,
+      hour: number,
+      rtlMarker: string
+    ) => {
+      let greeting = "";
+      let message = "";
+
+      if (locale === "he") {
+        greeting =
+          hour < 12
+            ? "בוקר טוב"
+            : hour < 17
+            ? "צהריים טובים"
+            : hour < 21
+            ? "ערב טוב"
+            : "לילה טוב";
+        message = `${greeting}
 ${rtlMarker}קוראים לי ${formData.name}, אני רוצה להזמין שולחן ל-${
-        formData.guests
-      } ${formData.guests === 1 ? "אורח" : "אורחים"} בתאריך ${
-        formData.date
-      } בשעה ${formData.time}
+          formData.guests
+        } ${formData.guests === 1 ? "אורח" : "אורחים"} בתאריך ${
+          formData.date
+        } בשעה ${formData.time}
 ${rtlMarker}מספר הטלפון שלי: ${formData.phone}${
-        formData.comment ? `\n${rtlMarker}הערות: ${formData.comment}` : ""
-      }`;
-    } else if (params.locale === "ru") {
-      greeting =
-        hour < 12
-          ? "Доброе утро"
-          : hour < 17
-          ? "Добрый день"
-          : hour < 21
-          ? "Добрый вечер"
-          : "Доброй ночи";
-      message = `${greeting}
+          formData.comment ? `\n${rtlMarker}הערות: ${formData.comment}` : ""
+        }`;
+      } else if (locale === "ru") {
+        greeting =
+          hour < 12
+            ? "Доброе утро"
+            : hour < 17
+            ? "Добрый день"
+            : hour < 21
+            ? "Добрый вечер"
+            : "Доброй ночи";
+        message = `${greeting}
 Меня зовут ${formData.name}, я хочу забронировать столик на ${
-        formData.guests
-      } ${formData.guests === 1 ? "человека" : "человек"} на ${formData.date} ${
-        formData.time
-      }
+          formData.guests
+        } ${formData.guests === 1 ? "человека" : "человек"} на ${
+          formData.date
+        } ${formData.time}
 Мой номер телефона: ${formData.phone}${
-        formData.comment ? `\nКомментарий: ${formData.comment}` : ""
-      }`;
-    } else {
-      greeting =
-        hour < 12
-          ? "Good morning"
-          : hour < 17
-          ? "Good afternoon"
-          : hour < 21
-          ? "Good evening"
-          : "Good night";
-      message = `${greeting}
+          formData.comment ? `\nКомментарий: ${formData.comment}` : ""
+        }`;
+      } else {
+        greeting =
+          hour < 12
+            ? "Good morning"
+            : hour < 17
+            ? "Good afternoon"
+            : hour < 21
+            ? "Good evening"
+            : "Good night";
+        message = `${greeting}
 My name is ${formData.name}, I would like to book a table for ${
-        formData.guests
-      } ${formData.guests === 1 ? "person" : "people"} on ${formData.date} at ${
-        formData.time
-      }
+          formData.guests
+        } ${formData.guests === 1 ? "person" : "people"} on ${
+          formData.date
+        } at ${formData.time}
 My phone number: ${formData.phone}${
-        formData.comment ? `\nComment: ${formData.comment}` : ""
-      }`;
-    }
+          formData.comment ? `\nComment: ${formData.comment}` : ""
+        }`;
+      }
+      return message;
+    };
+
+    message = buildWhatsappMessage(
+      params.locale as string,
+      formData,
+      hour,
+      rtlMarker
+    );
 
     window.open(
       `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`,
