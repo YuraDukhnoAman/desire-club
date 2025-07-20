@@ -19,7 +19,7 @@ interface ContactInfoProps {
   isRtl?: boolean;
 }
 
-const Container = styled.div<{ isRtl?: boolean }>`
+const Container = styled.div<{ $isRtl?: boolean }>`
   display: grid;
   gap: ${({ theme }) => theme.spacing.xl};
   padding: ${({ theme }) => theme.spacing.xl};
@@ -30,7 +30,7 @@ const Container = styled.div<{ isRtl?: boolean }>`
   overflow: hidden;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  direction: ${({ isRtl }) => (isRtl ? "rtl" : "ltr")};
+  direction: ${({ $isRtl }) => ($isRtl ? "rtl" : "ltr")};
 
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     grid-template-columns: repeat(2, 1fr);
@@ -74,7 +74,7 @@ const MapContainer = styled.div`
   }
 `;
 
-const InfoItem = styled.div<{ isRtl?: boolean }>`
+const InfoItem = styled.div<{ $isRtl?: boolean }>`
   display: flex;
   align-items: flex-start;
   gap: ${({ theme }) => theme.spacing.md};
@@ -95,10 +95,10 @@ const InfoItem = styled.div<{ isRtl?: boolean }>`
   }
 `;
 
-const SocialLinks = styled.div<{ isRtl?: boolean }>`
+const SocialLinks = styled.div<{ $isRtl?: boolean }>`
   display: flex;
   gap: ${({ theme }) => theme.spacing.md};
-  flex-direction: ${({ isRtl }) => (isRtl ? "row-reverse" : "row")};
+  flex-direction: ${({ $isRtl }) => ($isRtl ? "row-reverse" : "row")};
   margin-top: ${({ theme }) => theme.spacing.md};
 `;
 
@@ -133,7 +133,7 @@ const WorkingHours = styled.div`
   flex: 1;
 `;
 
-const DayTime = styled.div<{ isOpen?: boolean; isRtl?: boolean }>`
+const DayTime = styled.div<{ isOpen?: boolean; $isRtl?: boolean }>`
   display: flex;
   justify-content: space-between;
   color: ${({ theme, isOpen }) =>
@@ -141,7 +141,7 @@ const DayTime = styled.div<{ isOpen?: boolean; isRtl?: boolean }>`
   font-size: ${({ theme }) => theme.typography.fontSize.sm};
   padding: ${({ theme }) => theme.spacing.xs} 0;
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
-  flex-direction: ${({ isRtl }) => (isRtl ? "row-reverse" : "row")};
+  flex-direction: ${({ $isRtl }) => ($isRtl ? "row-reverse" : "row")};
 
   &:last-child {
     border-bottom: none;
@@ -248,14 +248,14 @@ const ContactInfo: React.FC<ContactInfoProps> = ({ isRtl = false }) => {
   ];
 
   return (
-    <Container isRtl={isRtl}>
+    <Container $isRtl={isRtl}>
       <Section>
-        <InfoItem isRtl={isRtl}>
+        <InfoItem $isRtl={isRtl}>
           <FaMapMarkerAlt />
           <span>{t("address")}</span>
         </InfoItem>
 
-        <InfoItem isRtl={isRtl}>
+        <InfoItem $isRtl={isRtl}>
           <FaPhone />
           <span>+972 50 210 2496</span>
           <CopyButton onClick={() => handleCopy("+972502102496", "phone")}>
@@ -263,7 +263,7 @@ const ContactInfo: React.FC<ContactInfoProps> = ({ isRtl = false }) => {
           </CopyButton>
         </InfoItem>
 
-        <InfoItem isRtl={isRtl}>
+        <InfoItem $isRtl={isRtl}>
           <FaEnvelope />
           <span>muraze@gmail.com</span>
           <CopyButton onClick={() => handleCopy("muraze@gmail.com", "email")}>
@@ -271,7 +271,7 @@ const ContactInfo: React.FC<ContactInfoProps> = ({ isRtl = false }) => {
           </CopyButton>
         </InfoItem>
 
-        <SocialLinks isRtl={isRtl}>
+        <SocialLinks $isRtl={isRtl}>
           <BookLink
             href={`/${params.locale}/book`}
             aria-label={t("social.whatsapp")}
@@ -298,14 +298,14 @@ const ContactInfo: React.FC<ContactInfoProps> = ({ isRtl = false }) => {
       </Section>
 
       <Section>
-        <InfoItem isRtl={isRtl}>
+        <InfoItem $isRtl={isRtl}>
           <FaClock />
           <WorkingHours>
             {days.map(({ name, hours, day, open, close }) => (
               <DayTime
                 key={day}
                 isOpen={isCurrentlyOpen(day, open, close)}
-                isRtl={isRtl}
+                $isRtl={isRtl}
               >
                 <span>{name}</span>
                 <span>{hours}</span>

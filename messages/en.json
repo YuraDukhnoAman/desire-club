@@ -158,7 +158,12 @@
   "reviews": {
     "title": "Customer Reviews",
     "description": "See what our guests are saying about their experiences at Desire Club",
-    "comingSoon": "Reviews coming soon! We're working on integrating Google Reviews to show you what our guests think about us."
+    "comingSoon": "Reviews coming soon! We're working on integrating Google Reviews to show you what our guests think about us.",
+    "averageRating": "Average Rating",
+    "totalReviews": "Total Reviews",
+    "loading": "Loading reviews...",
+    "error": "Error: {error}",
+    "noReviews": "No reviews available at the moment."
   },
   "menu": {
     "title": "Menu",

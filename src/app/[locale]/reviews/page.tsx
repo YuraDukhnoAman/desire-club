@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { PageContainer, PageTitle } from "@/components/ui/PageLayout";
+import { GoogleReviews } from "@/components/ui/GoogleReviews";
 
 const PageWrapper = styled.div`
   position: relative;
@@ -167,13 +168,7 @@ export default function ReviewsPage() {
         </Header>
 
         <ReviewsContainer>
-          <ComingSoon
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
-            {t("comingSoon")}
-          </ComingSoon>
+          <GoogleReviews />
         </ReviewsContainer>
       </PageContainer>
     </PageWrapper>
