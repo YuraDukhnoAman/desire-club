@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { useTranslations, useLocale } from "next-intl";
@@ -76,51 +76,99 @@ const SubtitleLink = styled(motion.button)`
   }
 `;
 
-const TabsContainer = styled.div`
-  width: 100%;
-  margin: ${({ theme }) => theme.spacing.xl} 0;
+const ContentContainer = styled(motion.div)<{ $isRtl: boolean }>`
+  max-width: 1200px;
+  margin: 0 auto;
+  direction: ${({ $isRtl }) => ($isRtl ? "rtl" : "ltr")};
 `;
 
-const TabList = styled.div<{ $isRtl: boolean }>`
+const VideoDescriptionSection = styled(motion.div)<{ $isRtl: boolean }>`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: ${({ theme }) => theme.spacing.lg};
-  margin-bottom: ${({ theme }) => theme.spacing.xl};
+  grid-template-columns: 1fr 1.2fr;
+  gap: ${({ theme }) => theme.spacing.xxl};
+  align-items: center;
+  margin: ${({ theme }) => theme.spacing.xxl} 0;
   direction: ${({ $isRtl }) => ($isRtl ? "rtl" : "ltr")};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     grid-template-columns: 1fr;
-    gap: ${({ theme }) => theme.spacing.md};
-    padding: 0 ${({ theme }) => theme.spacing.sm};
+    gap: ${({ theme }) => theme.spacing.xl};
+    text-align: center;
   }
 `;
 
-const Tab = styled.button<{ active: boolean; $isRtl: boolean }>`
-  position: relative;
-  background: ${({ active }) =>
-    active ? "rgba(255, 255, 255, 0.1)" : "rgba(255, 255, 255, 0.05)"};
-  border: 1px solid
-    ${({ theme, active }) =>
-      active ? theme.colors.primary : "rgba(255, 255, 255, 0.1)"};
-  border-radius: ${({ theme }) => theme.borderRadius.lg};
-  padding: ${({ theme }) => theme.spacing.lg};
-  cursor: pointer;
-  transition: all 0.3s ease;
-  direction: ${({ $isRtl }) => ($isRtl ? "rtl" : "ltr")};
+const DescriptionContent = styled.div<{ $isRtl: boolean }>`
   text-align: ${({ $isRtl }) => ($isRtl ? "right" : "left")};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    text-align: center;
+    order: -1;
+  }
+`;
+
+const MainDescription = styled(motion.div)<{ $isRtl: boolean }>`
+  font-size: ${({ theme }) => theme.typography.fontSize.xl};
+  color: ${({ theme }) => theme.colors.textSecondary};
+  line-height: ${({ theme }) => theme.typography.lineHeight.relaxed};
+  margin-bottom: ${({ theme }) => theme.spacing.lg};
+  white-space: pre-line;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    font-size: ${({ theme }) => theme.typography.fontSize.lg};
+  }
+`;
+
+const FeaturesList = styled(motion.ul)<{ $isRtl: boolean }>`
+  list-style: none;
+  padding: 0;
+  margin: ${({ theme }) => theme.spacing.lg} 0;
+  text-align: ${({ $isRtl }) => ($isRtl ? "right" : "left")};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    text-align: center;
+  }
+`;
+
+const FeatureItem = styled.li`
+  color: ${({ theme }) => theme.colors.textSecondary};
+  font-size: ${({ theme }) => theme.typography.fontSize.base};
+  margin-bottom: ${({ theme }) => theme.spacing.sm};
+  position: relative;
+  padding-left: ${({ theme }) => theme.spacing.lg};
+
+  &::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: ${({ theme }) => theme.colors.primary};
+    font-weight: bold;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    padding-left: 0;
+
+    &::before {
+      display: none;
+    }
+  }
+`;
+
+const VideoSection = styled(motion.div)`
+  position: relative;
+`;
+
+const VideoContainer = styled.div`
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
   overflow: hidden;
+  background: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(10px);
-  min-height: 200px;
-
-  &:hover {
-    border-color: ${({ theme }) => theme.colors.primary};
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  }
-
-  &:active {
-    transform: scale(0.98);
-  }
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  aspect-ratio: 9 / 16;
 
   &::before {
     content: "";
@@ -131,159 +179,58 @@ const Tab = styled.button<{ active: boolean; $isRtl: boolean }>`
     bottom: 0;
     background: linear-gradient(
       135deg,
-      ${({ theme }) => theme.colors.primary}20 0%,
-      ${({ theme }) => theme.colors.secondary}20 100%
+      ${({ theme }) => theme.colors.primary}05 0%,
+      ${({ theme }) => theme.colors.secondary}05 100%
     );
-    opacity: ${({ active }) => (active ? 1 : 0)};
-    transition: opacity 0.3s ease;
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 4px;
-    height: 100%;
-    background: ${({ theme }) => theme.colors.primary};
-    transform: scaleY(${({ active }) => (active ? 1 : 0)});
-    transition: transform 0.3s ease;
+    pointer-events: none;
+    z-index: 1;
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    padding: ${({ theme }) => theme.spacing.md};
-    min-height: 160px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    max-width: 350px;
+  }
 
-    &::after {
-      width: 100%;
-      height: 3px;
-      top: auto;
-      bottom: 0;
-      transform: scaleX(${({ active }) => (active ? 1 : 0)});
-    }
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    max-width: 280px;
   }
 `;
 
-const TabImage = styled.div<{ src: string }>`
+const Video = styled.video`
   width: 100%;
-  height: 120px;
-  background-image: url(${({ src }) => src});
-  background-size: cover;
-  background-position: center;
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  margin-bottom: ${({ theme }) => theme.spacing.md};
-  position: relative;
-  overflow: hidden;
-
-  &::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(
-      to bottom,
-      transparent 0%,
-      rgba(0, 0, 0, 0.3) 100%
-    );
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    height: 80px;
-    margin-bottom: ${({ theme }) => theme.spacing.sm};
-  }
-`;
-
-const TabTitle = styled.h3<{ $isRtl: boolean }>`
-  color: ${({ theme }) => theme.colors.text};
-  font-size: ${({ theme }) => theme.typography.fontSize.lg};
-  font-family: ${({ theme }) => theme.typography.fontFamily.accent};
-  margin-bottom: ${({ theme }) => theme.spacing.sm};
-  text-align: ${({ $isRtl }) => ($isRtl ? "right" : "left")};
-  position: relative;
-  z-index: 1;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    font-size: ${({ theme }) => theme.typography.fontSize.base};
-    margin-bottom: ${({ theme }) => theme.spacing.xs};
-  }
-`;
-
-const TabInfo = styled.p<{ $isRtl: boolean }>`
-  color: ${({ theme }) => theme.colors.textSecondary};
-  font-size: ${({ theme }) => theme.typography.fontSize.sm};
-  line-height: 1.4;
-  text-align: ${({ $isRtl }) => ($isRtl ? "right" : "left")};
-  position: relative;
-  z-index: 1;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    font-size: ${({ theme }) => theme.typography.fontSize.xs};
-    line-height: 1.3;
-  }
-`;
-
-const TabContent = styled.div<{ $isRtl: boolean }>`
-  margin-top: ${({ theme }) => theme.spacing.xl};
-  direction: ${({ $isRtl }) => ($isRtl ? "rtl" : "ltr")};
-`;
-
-const TabDescription = styled.div<{ $isRtl: boolean }>`
-  color: ${({ theme }) => theme.colors.textSecondary};
-  font-size: ${({ theme }) => theme.typography.fontSize.lg};
-  line-height: 1.6;
-  margin-bottom: ${({ theme }) => theme.spacing.xl};
-  text-align: ${({ $isRtl }) => ($isRtl ? "right" : "left")};
-  white-space: pre-line;
-`;
-
-const FeatureCard = styled(motion.div)`
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  height: 100%;
+  display: block;
+  object-fit: cover;
   border-radius: ${({ theme }) => theme.borderRadius.lg};
-  padding: ${({ theme }) => theme.spacing.xl};
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
-  margin-bottom: ${({ theme }) => theme.spacing.lg};
 
-  &:hover {
-    border-color: ${({ theme }) => theme.colors.primary};
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  &::-webkit-media-controls-panel {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  &::-webkit-media-controls-play-button,
+  &::-webkit-media-controls-volume-slider,
+  &::-webkit-media-controls-timeline {
+    filter: brightness(1.2);
   }
 `;
 
-const FeatureIcon = styled.div`
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: linear-gradient(
-    135deg,
-    ${({ theme }) => theme.colors.primary} 0%,
-    ${({ theme }) => theme.colors.secondary} 100%
-  );
+const VideoPlaceholder = styled.div`
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: ${({ theme }) => theme.spacing.lg};
-  font-size: 24px;
-`;
-
-const FeatureTitle = styled.h3`
-  font-size: ${({ theme }) => theme.typography.fontSize.xl};
-  color: ${({ theme }) => theme.colors.text};
-  margin-bottom: ${({ theme }) => theme.spacing.md};
-  font-family: ${({ theme }) => theme.typography.fontFamily.accent};
-`;
-
-const FeatureDescription = styled.p`
-  font-size: ${({ theme }) => theme.typography.fontSize.base};
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
   color: ${({ theme }) => theme.colors.textSecondary};
-  line-height: ${({ theme }) => theme.typography.lineHeight.relaxed};
+  font-size: ${({ theme }) => theme.typography.fontSize.lg};
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    font-size: ${({ theme }) => theme.typography.fontSize.base};
+  }
 `;
 
 const CTA = styled(motion.div)`
@@ -315,45 +262,6 @@ export function PrivateEvents() {
   const tEvents = useTranslations("events");
   const locale = useLocale();
   const isRtl = locale === "he";
-  const [activeTab, setActiveTab] = useState("corporate");
-
-  const eventTypes = [
-    {
-      id: "corporate",
-      label: t("features.corporate"),
-      description: t("features.corporateDesc"),
-      image:
-        "/assets/ui/backgrounds/about/disco/492694337_1243597207770976_179124857974170616_n.jpg",
-      details: t.raw("features.details.corporate"),
-    },
-    {
-      id: "birthdays",
-      label: t("features.birthdays"),
-      description: t("features.birthdaysDesc"),
-      image:
-        "/assets/ui/backgrounds/about/standup/500331705_1271017951695568_3759745623717392760_n.jpg",
-      details: t.raw("features.details.birthdays"),
-    },
-    {
-      id: "anniversaries",
-      label: t("features.anniversaries"),
-      description: t("features.anniversariesDesc"),
-      image:
-        "/assets/ui/backgrounds/about/live-concerts/514728464_1300841482046548_6550638706408135999_n.jpg",
-      details: t.raw("features.details.anniversaries"),
-    },
-    {
-      id: "custom",
-      label: t("features.custom"),
-      description: t("features.customDesc"),
-      image:
-        "/assets/ui/backgrounds/about/mom/492522651_1242690481194982_8592720461180068310_n.jpg",
-      details: t.raw("features.details.custom"),
-    },
-  ];
-
-  const activeEvent =
-    eventTypes.find((event) => event.id === activeTab) || eventTypes[0];
 
   const handleContactClick = () => {
     window.location.href = `/${locale}/contact`;
@@ -416,47 +324,64 @@ export function PrivateEvents() {
           </SubtitleLink>
         </Header>
 
-        <TabsContainer>
-          <TabList $isRtl={isRtl}>
-            {eventTypes.map((event) => (
-              <Tab
-                key={event.id}
-                active={activeTab === event.id}
-                onClick={() => setActiveTab(event.id)}
-                $isRtl={isRtl}
-              >
-                <TabImage src={event.image} />
-                <TabTitle $isRtl={isRtl}>{event.label}</TabTitle>
-                <TabInfo $isRtl={isRtl}>{event.description}</TabInfo>
-              </Tab>
-            ))}
-          </TabList>
-
-          <TabContent $isRtl={isRtl}>
-            <TabDescription $isRtl={isRtl}>
-              {activeTab === "corporate"
-                ? t("features.corporateFull")
-                : activeEvent.description}
-            </TabDescription>
-
-            <FeatureCard
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+        <ContentContainer
+          $isRtl={isRtl}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          viewport={{ once: true }}
+        >
+          <VideoDescriptionSection
+            $isRtl={isRtl}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            viewport={{ once: true }}
+          >
+            <VideoSection
+              initial={{ opacity: 0, x: isRtl ? 30 : -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              viewport={{ once: true }}
             >
-              <FeatureTitle>{activeEvent.label}</FeatureTitle>
-              <FeatureDescription>
-                <ul style={{ margin: 0, paddingLeft: "20px" }}>
-                  {activeEvent.details.map((detail: string, index: number) => (
-                    <li key={index} style={{ marginBottom: "8px" }}>
-                      {detail}
-                    </li>
+              <VideoContainer>
+                <Video controls preload="metadata" playsInline muted>
+                  <source
+                    src="/assets/videos/private-events-mov.MP4"
+                    type="video/mp4"
+                  />
+                  Your browser does not support the video tag.
+                </Video>
+              </VideoContainer>
+            </VideoSection>
+
+            <DescriptionContent $isRtl={isRtl}>
+              <MainDescription
+                $isRtl={isRtl}
+                initial={{ opacity: 0, x: isRtl ? -30 : 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                viewport={{ once: true }}
+              >
+                {t("features.corporateFull")}
+              </MainDescription>
+
+              <FeaturesList
+                $isRtl={isRtl}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.7 }}
+                viewport={{ once: true }}
+              >
+                {t
+                  .raw("features.details.corporate")
+                  .map((feature: string, index: number) => (
+                    <FeatureItem key={index}>{feature}</FeatureItem>
                   ))}
-                </ul>
-              </FeatureDescription>
-            </FeatureCard>
-          </TabContent>
-        </TabsContainer>
+              </FeaturesList>
+            </DescriptionContent>
+          </VideoDescriptionSection>
+        </ContentContainer>
 
         <CTA
           initial={{ opacity: 0, y: 20 }}
