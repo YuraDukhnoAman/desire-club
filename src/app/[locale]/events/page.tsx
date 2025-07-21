@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { PageContainer, PageTitle } from "@/components/ui/PageLayout";
 import { FacebookEventsGrid } from "@/components/sections/FacebookEventsGrid";
+import { PrivateEvents } from "@/components/sections/PrivateEvents";
 
 const PageWrapper = styled.div`
   position: relative;
@@ -118,7 +119,9 @@ export default function EventsPage() {
       </OrbsContainer>
 
       <PageContainer>
-        <Header>
+        <PrivateEvents />
+
+        <Header id="upcoming-events">
           <Title
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}

@@ -37,7 +37,56 @@
       "facebook": "Facebook Event"
     },
     "upcomingEvents": "Upcoming Events",
-    "viewAllEvents": "View All Events"
+    "upcomingEventsSubtitle": "View Events",
+    "viewAllEvents": "View All Events",
+    "privateEvents": {
+      "title": "Host Your Private Event",
+      "description": "Host your special occasions at Desire Club. From corporate events to private parties, we provide the perfect setting for unforgettable moments.",
+      "features": {
+        "title": "What We Offer",
+        "corporate": "Corporate Events",
+        "corporateDesc": "Professional meetings, team building, and corporate celebrations",
+        "corporateFull": "Corporate events, birthdays, weddings, creative evenings — we create an atmosphere that matches your vibe, not a template.\n\nMake corporate events unlike any other: we have live music, DJ, quizzes, karaoke, standup and a stage for any performance.\nFormal speech or wild party — the choice is yours, we'll provide lights, sound, bar and emotions.\n\nDesire Bar offers professional spaces for meetings, corporate celebrations and team building.\nWe have conference areas, stage, technical support and catering services.\nWe make sure your guests and colleagues remember this evening for a long time.",
+        "birthdays": "Birthday Parties",
+        "birthdaysDesc": "Celebrate your special day with friends and family",
+        "anniversaries": "Anniversaries",
+        "anniversariesDesc": "Romantic celebrations for couples",
+        "custom": "Custom Events",
+        "customDesc": "Tailored experiences for your unique requirements",
+        "details": {
+          "corporate": [
+            "Professional meeting spaces",
+            "Team building activities",
+            "Corporate celebrations",
+            "Conference facilities",
+            "Catering services"
+          ],
+          "birthdays": [
+            "Birthday party packages",
+            "Decoration services",
+            "Cake and catering",
+            "Music and entertainment",
+            "Photo opportunities"
+          ],
+          "anniversaries": [
+            "Romantic atmosphere setup",
+            "Special menu options",
+            "Private dining areas",
+            "Music selection",
+            "Memorable experiences"
+          ],
+          "custom": [
+            "Tailored event planning",
+            "Custom menu creation",
+            "Special theme setup",
+            "Flexible space arrangement",
+            "Personalized services"
+          ]
+        }
+      },
+      "contactUs": "Contact Us for Private Events",
+      "learnMore": "Learn More"
+    }
   },
   "gallery": {
     "title": "Gallery",
