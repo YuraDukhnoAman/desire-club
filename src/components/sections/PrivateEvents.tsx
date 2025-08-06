@@ -264,10 +264,33 @@ export function PrivateEvents() {
   const isRtl = locale === "he";
 
   const handleContactClick = () => {
+    // Track private event inquiry
+    if (typeof window !== "undefined" && (window as any).fbq) {
+      (window as any).fbq("track", "Lead", {
+        content_name: "Private Events Contact",
+        content_category: "Private Events",
+        value: 10,
+        currency: "ILS",
+      });
+
+      (window as any).fbq("trackCustom", "PrivateEventInquiry", {
+        inquiry_type: "contact_button",
+        content_category: "Private Events",
+      });
+    }
+
     window.location.href = `/${locale}/contact`;
   };
 
   const handleUpcomingEventsClick = () => {
+    // Track navigation to upcoming events
+    if (typeof window !== "undefined" && (window as any).fbq) {
+      (window as any).fbq("trackCustom", "NavigateToUpcomingEvents", {
+        source: "private_events_section",
+        content_category: "Navigation",
+      });
+    }
+
     const upcomingEventsSection = document.getElementById("upcoming-events");
     if (upcomingEventsSection) {
       upcomingEventsSection.scrollIntoView({

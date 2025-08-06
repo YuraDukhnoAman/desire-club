@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { MetaPixelProvider } from "@/components/providers/MetaPixelProvider";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -58,11 +59,13 @@ export default async function LocaleLayout({
         <NextIntlClientProvider locale={locale} messages={messages}>
           <StyledComponentsRegistry>
             <ThemeProvider>
-              <ErrorBoundary>
-                <Header />
-                <main>{children}</main>
-                <Footer />
-              </ErrorBoundary>
+              <MetaPixelProvider>
+                <ErrorBoundary>
+                  <Header />
+                  <main>{children}</main>
+                  <Footer />
+                </ErrorBoundary>
+              </MetaPixelProvider>
             </ThemeProvider>
           </StyledComponentsRegistry>
         </NextIntlClientProvider>

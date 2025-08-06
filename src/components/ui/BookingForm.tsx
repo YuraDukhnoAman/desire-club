@@ -343,6 +343,24 @@ My phone number: ${formData.phone}${
       rtlMarker
     );
 
+    // Track successful booking submission
+    if (typeof window !== "undefined" && (window as any).fbq) {
+      (window as any).fbq("track", "CompleteRegistration", {
+        content_name: "Table Booking",
+        content_category: "Booking",
+        value: 5,
+        currency: "ILS",
+      });
+
+      (window as any).fbq("trackCustom", "BookingFormSubmit", {
+        guests: formData.guests,
+        event_date: formData.date,
+        event_time: formData.time,
+        has_comment: !!formData.comment,
+        content_category: "Booking",
+      });
+    }
+
     window.open(
       `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`,
       "_blank"

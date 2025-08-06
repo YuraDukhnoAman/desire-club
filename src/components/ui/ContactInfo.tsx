@@ -80,7 +80,7 @@ const InfoItem = styled.div<{ $isRtl?: boolean }>`
   gap: ${({ theme }) => theme.spacing.md};
   color: ${({ theme }) => theme.colors.text};
   font-size: ${({ theme }) => theme.typography.fontSize.base};
-  flex-direction: ${({ isRtl }) => (isRtl ? "row-reverse" : "row")};
+  flex-direction: ${({ $isRtl }) => ($isRtl ? "row-reverse" : "row")};
   width: 100%;
 
   svg {

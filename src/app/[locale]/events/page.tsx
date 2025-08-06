@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useTranslations } from "next-intl";
 import styled from "styled-components";
 import { motion } from "framer-motion";
@@ -77,6 +77,23 @@ const Description = styled(motion.p)`
 
 export default function EventsPage() {
   const t = useTranslations("events");
+
+  // Track Events page view
+  useEffect(() => {
+    if (typeof window !== "undefined" && (window as any).fbq) {
+      // Track page view
+      (window as any).fbq("track", "ViewContent", {
+        content_name: "Events Page",
+        content_category: "Events",
+      });
+
+      // Track custom event
+      (window as any).fbq("trackCustom", "EventsPageView", {
+        page_type: "events_listing",
+        content_category: "Events",
+      });
+    }
+  }, []);
 
   return (
     <PageWrapper>
