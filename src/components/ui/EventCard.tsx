@@ -138,6 +138,23 @@ export function EventCard({
             )}`}
             external={false}
             onClick={() => {
+              // Track event booking intent
+              if (typeof window !== "undefined" && (window as any).fbq) {
+                (window as any).fbq("track", "Lead", {
+                  content_name: title,
+                  content_category: "Event Booking",
+                  value: 1,
+                  currency: "ILS",
+                });
+
+                (window as any).fbq("trackCustom", "EventBookingClick", {
+                  event_name: title,
+                  event_date: date,
+                  event_time: time,
+                  content_category: "Events",
+                });
+              }
+
               console.log("EventCard - Button clicked");
               console.log("EventCard - Event title:", title);
               console.log("EventCard - Event date:", date);

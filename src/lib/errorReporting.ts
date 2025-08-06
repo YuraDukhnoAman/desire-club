@@ -32,7 +32,7 @@ export function createErrorReport(
   return {
     message: error.message,
     stack: error.stack ? error.stack : undefined,
-    componentStack: errorInfo?.componentStack,
+    componentStack: errorInfo?.componentStack || undefined,
     timestamp: new Date().toISOString(),
     url: typeof window !== "undefined" ? window.location.href : "unknown",
     userAgent:
@@ -78,7 +78,7 @@ class RemoteLogger implements ErrorLogger {
     this.endpoint = endpoint;
   }
 
-  async logError(error: Error, errorInfo?: ErrorInfo): void {
+  async logError(error: Error, errorInfo?: ErrorInfo): Promise<void> {
     const report = createErrorReport(error, errorInfo);
 
     try {
@@ -100,7 +100,10 @@ class RemoteLogger implements ErrorLogger {
     }
   }
 
-  async logWarning(message: string, context?: Record<string, any>): void {
+  async logWarning(
+    message: string,
+    context?: Record<string, any>
+  ): Promise<void> {
     try {
       await fetch(this.endpoint, {
         method: "POST",
@@ -121,7 +124,7 @@ class RemoteLogger implements ErrorLogger {
     }
   }
 
-  async logInfo(message: string, context?: Record<string, any>): void {
+  async logInfo(message: string, context?: Record<string, any>): Promise<void> {
     try {
       await fetch(this.endpoint, {
         method: "POST",
