@@ -1,7 +1,15 @@
 import { useTranslations } from "next-intl";
+import { setRequestLocale } from "next-intl/server";
 import { Hero } from "@/components/sections/Hero";
 
-export default function HomePage() {
+type Props = {
+  params: { locale: string };
+};
+
+export default function HomePage({ params: { locale } }: Props) {
+  // Enable static rendering
+  setRequestLocale(locale);
+
   const t = useTranslations();
 
   return (

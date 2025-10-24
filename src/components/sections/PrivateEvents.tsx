@@ -368,7 +368,7 @@ export function PrivateEvents() {
               viewport={{ once: true }}
             >
               <VideoContainer>
-                <Video controls preload="metadata" playsInline muted>
+                <Video controls preload="metadata" playsInline muted autoPlay loop>
                   <source
                     src="/assets/videos/private-events-mov.MP4"
                     type="video/mp4"
