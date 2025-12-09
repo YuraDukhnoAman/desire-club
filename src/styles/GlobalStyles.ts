@@ -105,6 +105,8 @@ export const GlobalStyles = createGlobalStyle`
     background: none;
     font-family: inherit;
     font-size: inherit;
+    min-height: 44px;
+    min-width: 44px;
     transition: all ${({ theme }) => theme.animations.duration.fast} ${({
   theme,
 }) => theme.animations.easing.easeInOut};
@@ -113,6 +115,27 @@ export const GlobalStyles = createGlobalStyle`
       cursor: not-allowed;
       opacity: 0.5;
     }
+  }
+
+  /* Accessibility: Focus indicators for keyboard navigation */
+  *:focus {
+    outline: 2px solid ${({ theme }) => theme.colors.primary};
+    outline-offset: 2px;
+  }
+
+  *:focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  *:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.primary};
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(255, 0, 128, 0.2);
+  }
+
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.primary};
+    outline-offset: 2px;
   }
 
   input, textarea, select {
@@ -233,5 +256,44 @@ export const GlobalStyles = createGlobalStyle`
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border: 0;
+  }
+
+  /* Skip to content link */
+  .skip-to-content {
+    position: absolute;
+    top: -100px;
+    left: 0;
+    background: ${({ theme }) => theme.colors.primary};
+    color: white;
+    padding: ${({ theme }) => theme.spacing.md} ${({ theme }) => theme.spacing.lg};
+    z-index: 9999;
+    text-decoration: none;
+    font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
+    border-radius: 0 0 ${({ theme }) => theme.borderRadius.md} 0;
+
+    &:focus {
+      top: 0;
+      outline: 2px solid white;
+      outline-offset: 2px;
+    }
+  }
+
+  /* Accessibility: Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Accessibility: High contrast mode support */
+  @media (prefers-contrast: high) {
+    * {
+      border-color: currentColor !important;
+    }
   }
 `;

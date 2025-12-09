@@ -383,6 +383,8 @@ My phone number: ${formData.phone}${
             value={formData.name}
             onChange={handleInputChange}
             required
+            aria-required="true"
+            aria-label={tf("name")}
           />
         </FormGroup>
 
@@ -395,6 +397,8 @@ My phone number: ${formData.phone}${
             value={formData.phone}
             onChange={handleInputChange}
             required
+            aria-required="true"
+            aria-label={tf("phone")}
           />
         </FormGroup>
 
@@ -409,6 +413,8 @@ My phone number: ${formData.phone}${
             value={formData.guests}
             onChange={handleInputChange}
             required
+            aria-required="true"
+            aria-label={tf("guests")}
           />
         </FormGroup>
 
@@ -421,6 +427,8 @@ My phone number: ${formData.phone}${
             value={formData.date}
             onChange={handleInputChange}
             required
+            aria-required="true"
+            aria-label={tf("date")}
           />
         </FormGroup>
 
@@ -433,6 +441,8 @@ My phone number: ${formData.phone}${
             value={formData.time}
             onChange={handleInputChange}
             required
+            aria-required="true"
+            aria-label={tf("time")}
           />
         </FormGroup>
 
@@ -445,6 +455,7 @@ My phone number: ${formData.phone}${
             name="comment"
             value={formData.comment}
             onChange={handleInputChange}
+            aria-label={tf("comment")}
           />
         </FormGroup>
 

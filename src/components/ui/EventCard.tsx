@@ -118,7 +118,7 @@ export function EventCard({
       <ImageContainer>
         <Image
           src={imageError ? fallbackImage : imgSrc}
-          alt={title}
+          alt={`${title} - ${new Date(date).toLocaleDateString(locale, { year: 'numeric', month: 'long', day: 'numeric' })}`}
           fill
           style={{ objectFit: "cover" }}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

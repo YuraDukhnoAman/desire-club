@@ -254,15 +254,15 @@ export function GoogleReviews() {
   };
 
   if (loading) {
-    return <LoadingState>{t("loading")}</LoadingState>;
+    return <LoadingState role="status" aria-live="polite">{t("loading")}</LoadingState>;
   }
 
   if (error) {
-    return <ErrorState>{t("error", { error })}</ErrorState>;
+    return <ErrorState role="alert" aria-live="assertive">{t("error", { error })}</ErrorState>;
   }
 
   if (reviews.length === 0) {
-    return <EmptyState>{t("noReviews")}</EmptyState>;
+    return <EmptyState role="status">{t("noReviews")}</EmptyState>;
   }
 
   return (

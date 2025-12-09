@@ -27,7 +27,9 @@ const neonPulse = keyframes`
 `;
 
 // Styled Components - Mobile First Design
-const HeaderContainer = styled.header<{
+const HeaderContainer = styled.header.attrs({
+  role: "banner",
+})<{
   $isScrolled: boolean;
   $isVisible: boolean;
   $isRTL: boolean;
@@ -650,8 +652,12 @@ export function Header() {
         $isVisible={isVisible}
         $isRTL={isRTL}
       >
-        <Nav $isScrolled={isScrolled}>
-          <LogoContainer href={getLocalizedHref("/")}>
+        <Nav 
+          $isScrolled={isScrolled} 
+          as="nav" 
+          aria-label={isRTL ? "תפריט ניווט ראשי" : "Main navigation"}
+        >
+          <LogoContainer href={getLocalizedHref("/")} aria-label={isRTL ? "חזרה לדף הבית" : "Go to homepage"}>
             <DesireLogo size={60} />
             <LogoText>DESIRE</LogoText>
           </LogoContainer>
@@ -663,6 +669,7 @@ export function Header() {
                 key={item.href}
                 href={getLocalizedHref(item.href)}
                 $isActive={isActive(item.href)}
+                aria-current={isActive(item.href) ? "page" : undefined}
               >
                 {item.label}
               </DesktopNavLink>
@@ -671,7 +678,13 @@ export function Header() {
 
           <RightSection>
             <LocaleSwitcher />
-            <BurgerButton $isOpen={isMenuOpen} onClick={handleMenuToggle}>
+            <BurgerButton 
+              $isOpen={isMenuOpen} 
+              onClick={handleMenuToggle}
+              aria-label={isRTL ? "תפריט" : "Menu"}
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-menu"
+            >
               <BurgerLine $isOpen={isMenuOpen} $lineIndex={0} />
               <BurgerLine $isOpen={isMenuOpen} $lineIndex={1} />
               <BurgerLine $isOpen={isMenuOpen} $lineIndex={2} />
@@ -690,13 +703,22 @@ export function Header() {
             animate="open"
             exit="closed"
             variants={overlayVariants}
+            onClick={handleMenuToggle}
+            role="dialog"
+            aria-modal="true"
+            aria-label={isRTL ? "תפריט ניווט נייד" : "Mobile navigation menu"}
           >
-            <MobileNavLinks variants={mobileMenuVariants}>
+            <MobileNavLinks 
+              variants={mobileMenuVariants}
+              id="mobile-menu"
+              onClick={(e) => e.stopPropagation()}
+            >
               {navItems.map((item) => (
                 <motion.div key={item.href} variants={menuItemVariants}>
                   <MobileNavLink
                     href={getLocalizedHref(item.href)}
                     $isActive={isActive(item.href)}
+                    aria-current={isActive(item.href) ? "page" : undefined}
                     onClick={handleNavClick}
                   >
                     {item.label}
