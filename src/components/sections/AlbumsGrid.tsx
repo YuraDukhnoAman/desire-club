@@ -154,20 +154,29 @@ export function AlbumsGrid() {
       const data: FacebookAlbumsResponse = await response.json();
 
       if (data.data && data.data.length > 0) {
-        const transformedAlbums = data.data.map((album) => ({
-          id: album.id,
-          name: album.name,
-          description: album.description,
-          photoCount: album.count || 0,
-          coverImage:
+        const transformedAlbums = data.data.map((album) => {
+          const fbImage =
             album.cover_photo?.images?.find((img) => img.width >= 600)
               ?.source ||
             album.cover_photo?.source ||
-            album.cover_photo?.picture,
-          createdAt: album.created_time || Date.now(),
-          facebookUrl:
-            album.link || `https://www.facebook.com/album/${album.id}`,
-        }));
+            album.cover_photo?.picture;
+
+          // Proxy Facebook images to bypass 403 restrictions
+          const coverImage = fbImage
+            ? `/api/proxy-image?url=${encodeURIComponent(fbImage)}`
+            : undefined;
+
+          return {
+            id: album.id,
+            name: album.name,
+            description: album.description,
+            photoCount: album.count || 0,
+            coverImage,
+            createdAt: album.created_time || Date.now(),
+            facebookUrl:
+              album.link || `https://www.facebook.com/album/${album.id}`,
+          };
+        });
 
         if (after) {
           setAlbums((prev) => [...prev, ...transformedAlbums]);

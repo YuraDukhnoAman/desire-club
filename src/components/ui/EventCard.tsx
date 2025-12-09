@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { Button } from "./Button";
@@ -96,11 +96,17 @@ export function EventCard({
 }: EventCardProps) {
   const t = useTranslations("events");
   const locale = useLocale();
+  const [imgSrc, setImgSrc] = useState(image);
+  const [imageError, setImageError] = useState(false);
+
   const formattedDate = new Date(date).toLocaleDateString(locale, {
     year: "numeric",
     month: "long",
     day: "numeric",
   });
+
+  const fallbackImage =
+    "/assets/ui/backgrounds/hero/487941383_1220824813381549_7407778124659682855_n.jpg";
 
   return (
     <Card
@@ -111,11 +117,18 @@ export function EventCard({
     >
       <ImageContainer>
         <Image
-          src={image}
+          src={imageError ? fallbackImage : imgSrc}
           alt={title}
           fill
           style={{ objectFit: "cover" }}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          onError={() => {
+            if (!imageError) {
+              setImageError(true);
+              setImgSrc(fallbackImage);
+            }
+          }}
+          unoptimized
         />
       </ImageContainer>
       <Content>

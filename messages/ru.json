@@ -237,55 +237,58 @@
     "items": {
       "beef_carpaccio": {
         "name": "Карпаччо из говядины",
-        "description": "тонко нарезанное говяжье филе, бальзамический уксус, каперсы, пармезан"
+        "description": "тонко нарезанное говяжье филе, бальзамический уксус, каперсы, пармезан",
+        "price": 82
       },
-      "cheese_platter": {
-        "name": "Плато сыров",
-        "description": "5 отборных сортов сыра с орехами, сухофруктами и медом"
+      "beet_carpaccio": {
+        "name": "Карпаччо из свеклы",
+        "description": "",
+        "price": 42
       },
-      "pickled_assortment": {
-        "name": "Домашние соления - ассорти",
-        "description": ""
+      "salmon_tartare": {
+        "name": "Тартар из лосося",
+        "description": "",
+        "price": 68
       },
-      "edamame": {
-        "name": "Эдамаме",
-        "description": ""
+      "tuna_tartare": {
+        "name": "Тартар из тунца",
+        "description": "",
+        "price": 72
       },
-      "focaccia": {
-        "name": "Фокачча",
-        "description": "с дипами"
+      "beef_tartare": {
+        "name": "Тартар из говядины",
+        "description": "",
+        "price": 68
       },
-      "french_fries": {
-        "name": "Картофель фри",
-        "description": "на выбор: голый/с сыром/с сыром и беконом"
+      "bruschetta_burrata": {
+        "name": "Брускетта с бурратой, томатами и базиликом",
+        "description": "",
+        "price": 48
       },
-      "ohm_fries": {
-        "name": "Ом Фрайс",
-        "description": "картошка под сладким чили"
+      "bbq_chicken_wings": {
+        "name": "Куриные крылышки BBQ",
+        "description": "",
+        "price": 54
       },
-      "stuffed_portobello": {
-        "name": "Фаршированные Грибы Портобелло",
-        "description": "3 гриба Портобелло фаршированные сыром и песто"
+      "tempura_shrimp": {
+        "name": "Креветки в темпуре",
+        "description": "",
+        "price": 76
       },
-      "calamari_rings": {
-        "name": "Кольца кальмара",
-        "description": "обжаренные в панировке, подаются с соусом тартар"
+      "veggie_spring_rolls": {
+        "name": "Спринг роллы с овощами",
+        "description": "",
+        "price": 52
       },
-      "fried_platter": {
-        "name": "Плато закусок во фритюре",
-        "description": "луковые колечки, батата фри, картофель фри и картофельные шарики"
+      "shrimp_spring_rolls": {
+        "name": "Спринг роллы с креветкой",
+        "description": "",
+        "price": 64
       },
-      "chicken_wings": {
-        "name": "Куриные крылышки",
-        "description": "в соусе барбекю"
-      },
-      "baked_nachos": {
-        "name": "Начос, запеченные с сыром",
-        "description": "чипсы из кукурузной тортильи, подаются с дипами"
-      },
-      "fried_halloumi": {
-        "name": "Жареный cыр Халуми",
-        "description": ""
+      "falafel_tahini": {
+        "name": "Фалафель с тахини",
+        "description": "",
+        "price": 38
       },
       "caesar_salad": {
         "name": "Салат Цезарь",
@@ -383,6 +386,11 @@
         "name": "Паста с морепродуктами",
         "description": "с миксом из морепродуктов (креветки, кальмары и мидии) и сливочным соусом"
       },
+      "carbonara_pasta": {
+        "name": "Паста карбонара",
+        "description": "",
+        "price": 78
+      },
       "triple_chocolate": {
         "name": "Тройной шоколад",
         "description": ""
@@ -411,7 +419,6 @@
         "name": "Фруктовая плата",
         "description": ""
       }
-    },
-    "note": "Позиции меню могут меняться. Пожалуйста, уточните у официанта текущий выбор."
+    }
   }
 }

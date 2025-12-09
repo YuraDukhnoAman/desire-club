@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -188,12 +188,17 @@ export function AlbumCard({
   const t = useTranslations("gallery.albums");
   const locale = useLocale();
   const isRtl = locale === "he";
+  const [imageError, setImageError] = useState(false);
+  const [imgSrc, setImgSrc] = useState(coverImage);
 
   const formattedDate = new Date(createdAt).toLocaleDateString(locale, {
     year: "numeric",
     month: "long",
     day: "numeric",
   });
+
+  const fallbackImage =
+    "/assets/ui/backgrounds/hero/487941383_1220824813381549_7407778124659682855_n.jpg";
 
   const CardContent = (
     <Card
@@ -205,13 +210,20 @@ export function AlbumCard({
       whileTap={{ y: -6, scale: 1.01 }}
     >
       <ImageContainer>
-        {coverImage && (
+        {(coverImage || !imageError) && (
           <Image
-            src={coverImage}
+            src={imageError ? fallbackImage : imgSrc || fallbackImage}
             alt={name}
             fill
             style={{ objectFit: "cover" }}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            onError={() => {
+              if (!imageError) {
+                setImageError(true);
+                setImgSrc(fallbackImage);
+              }
+            }}
+            unoptimized
           />
         )}
         <PhotoCountBadge>

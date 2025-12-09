@@ -237,55 +237,58 @@
     "items": {
       "beef_carpaccio": {
         "name": "קרפצ'יו בקר",
-        "description": "נתחי פילה בקר דקים, חומץ בלסמי, צלפים, פרמזן"
+        "description": "נתחי פילה בקר דקים, חומץ בלסמי, צלפים, פרמזן",
+        "price": 82
       },
-      "cheese_platter": {
-        "name": "פלטת גבינות",
-        "description": "5 סוגי גבינות נבחרות עם אגוזים, פירות יבשים ודבש"
+      "beet_carpaccio": {
+        "name": "קרפצ'יו סלק",
+        "description": "",
+        "price": 42
       },
-      "pickled_assortment": {
-        "name": "חמוצים ביתיים - מבחר",
-        "description": ""
+      "salmon_tartare": {
+        "name": "טרטר סלמון",
+        "description": "",
+        "price": 68
       },
-      "edamame": {
-        "name": "אדממה",
-        "description": ""
+      "tuna_tartare": {
+        "name": "טרטר טונה",
+        "description": "",
+        "price": 72
       },
-      "focaccia": {
-        "name": "פוקצ'ה",
-        "description": "עם מטבלים"
+      "beef_tartare": {
+        "name": "טרטר בקר",
+        "description": "",
+        "price": 68
       },
-      "french_fries": {
-        "name": "צ'יפס",
-        "description": "לבחירה: רגיל/עם גבינה/עם גבינה ובייקון"
+      "bruschetta_burrata": {
+        "name": "ברוסקטה עם בוראטה, עגבניות ובזיליקום",
+        "description": "",
+        "price": 48
       },
-      "ohm_fries": {
-        "name": "אום פרייז",
-        "description": "תפוחי אדמה ברוטב צ'ילי מתוק"
+      "bbq_chicken_wings": {
+        "name": "כנפי עוף BBQ",
+        "description": "",
+        "price": 54
       },
-      "stuffed_portobello": {
-        "name": "פטריות פורטובלו ממולאות",
-        "description": "3 פטריות פורטובלו ממולאות בגבינה ופסטו"
+      "tempura_shrimp": {
+        "name": "שרימפס טמפורה",
+        "description": "",
+        "price": 76
       },
-      "calamari_rings": {
-        "name": "טבעות קלמרי",
-        "description": "מטוגנות בציפוי פריך, מוגש עם רוטב טרטר"
+      "veggie_spring_rolls": {
+        "name": "ספרינג רולס עם ירקות",
+        "description": "",
+        "price": 52
       },
-      "fried_platter": {
-        "name": "פלטת מטוגנים",
-        "description": "טבעות בצל, בטטה פריי, צ'יפס וכדורי תפוחי אדמה"
+      "shrimp_spring_rolls": {
+        "name": "ספרינג רולס עם שרימפס",
+        "description": "",
+        "price": 64
       },
-      "chicken_wings": {
-        "name": "כנפי עוף",
-        "description": "ברוטב ברביקיו"
-      },
-      "baked_nachos": {
-        "name": "נאצ'וס אפוי עם גבינה",
-        "description": "צ'יפס טורטיה תירס, מוגש עם מטבלים"
-      },
-      "fried_halloumi": {
-        "name": "חלומי מטוגן",
-        "description": ""
+      "falafel_tahini": {
+        "name": "פלאפל עם טחינה",
+        "description": "",
+        "price": 38
       },
       "caesar_salad": {
         "name": "סלט קיסר",
@@ -383,6 +386,11 @@
         "name": "פסטה פירות ים",
         "description": "עם מיקס פירות ים (שרימפס, קלמרי ומולים) ורוטב שמנת"
       },
+      "carbonara_pasta": {
+        "name": "פסטה קרבונרה",
+        "description": "",
+        "price": 78
+      },
       "triple_chocolate": {
         "name": "שוקולד משולש",
         "description": ""
@@ -411,7 +419,6 @@
         "name": "פלטת פירות",
         "description": ""
       }
-    },
-    "note": "פריטי התפריט עשויים להשתנות. אנא שאלו את המלצר לגבי המבחר הנוכחי."
+    }
   }
 }

@@ -239,8 +239,6 @@ export default function MenuPage() {
               )}
             </motion.div>
           </AnimatePresence>
-
-          <MenuNote variants={itemVariants}>{t("note")}</MenuNote>
         </MenuContent>
       </PageContainer>
     </PageWrapper>

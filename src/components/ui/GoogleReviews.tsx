@@ -217,7 +217,10 @@ export function GoogleReviews() {
           throw new Error(data.error);
         }
 
-        setReviews(data.reviews || []);
+        const filteredReviews = (data.reviews || []).filter(
+          (review) => review.rating >= 3
+        );
+        setReviews(filteredReviews);
         setStats({
           averageRating: data.averageRating,
           totalReviewCount: data.totalReviewCount,

@@ -278,6 +278,12 @@ export function FacebookEventsGrid() {
     ).map((event) => {
       const type = determineEventType(event);
       const price = extractPrice(event.description || "");
+      const fbImage = getEventImage(event);
+
+      // Proxy Facebook images to bypass 403 restrictions
+      const image = fbImage
+        ? `/api/proxy-image?url=${encodeURIComponent(fbImage)}`
+        : "/assets/ui/backgrounds/hero/487941383_1220824813381549_7407778124659682855_n.jpg";
 
       return {
         id: event.id,
@@ -299,7 +305,7 @@ export function FacebookEventsGrid() {
         description: event.description || "",
         price,
         type,
-        image: getEventImage(event),
+        image,
         bookingUrl: event.ticket_uri || `/${locale}/book`,
         featured: false,
       };

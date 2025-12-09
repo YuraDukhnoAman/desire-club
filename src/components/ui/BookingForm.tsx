@@ -71,12 +71,12 @@ const FormContainer = styled.div`
   }
 `;
 
-const TitleSection = styled.div<{ isRtl: boolean }>`
+const TitleSection = styled.div<{ $isRtl: boolean }>`
   text-align: center;
   margin-bottom: ${({ theme }) => theme.spacing.xxxl};
   max-width: 600px;
   width: 100%;
-  direction: ${({ isRtl }) => (isRtl ? "rtl" : "ltr")};
+  direction: ${({ $isRtl }) => ($isRtl ? "rtl" : "ltr")};
   position: relative;
   z-index: 1;
 `;
@@ -109,7 +109,7 @@ const Description = styled.p`
   }
 `;
 
-const Form = styled.form<{ isRtl: boolean }>`
+const Form = styled.form<{ $isRtl: boolean }>`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.lg};
@@ -120,7 +120,7 @@ const Form = styled.form<{ isRtl: boolean }>`
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   box-shadow: ${({ theme }) => theme.shadows.medium};
   backdrop-filter: blur(10px);
-  direction: ${({ isRtl }) => (isRtl ? "rtl" : "ltr")};
+  direction: ${({ $isRtl }) => ($isRtl ? "rtl" : "ltr")};
   border: 1px solid rgba(255, 255, 255, 0.1);
   position: relative;
   z-index: 1;
@@ -369,11 +369,11 @@ My phone number: ${formData.phone}${
 
   return (
     <FormContainer>
-      <TitleSection isRtl={isRtl}>
+      <TitleSection $isRtl={isRtl}>
         <Title>{t("title")}</Title>
         <Description>{t("description")}</Description>
       </TitleSection>
-      <Form isRtl={isRtl} onSubmit={handleSubmit}>
+      <Form $isRtl={isRtl} onSubmit={handleSubmit}>
         <FormGroup>
           <Label htmlFor="name">{tf("name")} *</Label>
           <Input
