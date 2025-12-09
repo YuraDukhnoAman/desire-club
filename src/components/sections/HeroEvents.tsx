@@ -102,7 +102,7 @@ export function HeroEvents() {
         setLoading(true);
         setError(null);
 
-        const response = await fetch("/api/facebook/events?limit=3");
+        const response = await fetch("/api/facebook/events?limit=4");
 
         if (!response.ok) {
           throw new Error("Failed to fetch events");
@@ -126,7 +126,7 @@ export function HeroEvents() {
               new Date(a.start_time).getTime() -
               new Date(b.start_time).getTime()
           )
-          .slice(0, 3)
+
           .map(transformFacebookEvent);
 
         setEvents(transformedEvents);
@@ -188,27 +188,31 @@ export function HeroEvents() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.5 }}
       >
-        {events.map((event) => (
-          <EventCard
-            key={event.id}
-            id={event.id}
-            title={event.title}
-            date={event.startDate.toISOString().split("T")[0]}
-            time={event.startDate.toLocaleTimeString("en-US", {
-              hour: "2-digit",
-              minute: "2-digit",
-              hour12: true,
-            })}
-            description={event.description || ""}
-            type="facebook"
-            image={
-              event.coverImage ||
-              "/assets/ui/backgrounds/hero/487941383_1220824813381549_7407778124659682855_n.jpg"
-            }
-            bookingUrl={event.facebookUrl}
-            featured={false}
-          />
-        ))}
+        {events.map((event) => {
+          // Proxy Facebook images to bypass 403 restrictions
+          const imageUrl = event.coverImage
+            ? `/api/proxy-image?url=${encodeURIComponent(event.coverImage)}`
+            : "/assets/ui/backgrounds/hero/487941383_1220824813381549_7407778124659682855_n.jpg";
+
+          return (
+            <EventCard
+              key={event.id}
+              id={event.id}
+              title={event.title}
+              date={event.startDate.toISOString().split("T")[0]}
+              time={event.startDate.toLocaleTimeString("en-US", {
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: true,
+              })}
+              description={event.description || ""}
+              type="facebook"
+              image={imageUrl}
+              bookingUrl={event.facebookUrl}
+              featured={false}
+            />
+          );
+        })}
       </EventsGrid>
 
       <ButtonContainer

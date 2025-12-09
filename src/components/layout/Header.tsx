@@ -490,15 +490,18 @@ const BurgerLine = styled.span<{ $isOpen: boolean; $lineIndex: number }>`
   }
 `;
 
-const ScrollIndicator = styled.div<{ $progress: number }>`
+const ScrollIndicator = styled.div.attrs<{ $progress: number }>(({ $progress }) => ({
+  style: {
+    width: `${$progress}%`,
+    opacity: $progress > 0 ? 1 : 0,
+  },
+}))<{ $progress: number }>`
   position: absolute;
   bottom: 0;
   left: 0;
   height: 2px;
   background: ${({ theme }) => theme.gradients.primary};
-  width: ${({ $progress }) => $progress}%;
   transition: width ${({ theme }) => theme.animations.duration.fast};
-  opacity: ${({ $progress }) => ($progress > 0 ? 1 : 0)};
 `;
 
 export function Header() {

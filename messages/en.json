@@ -238,55 +238,58 @@
     "items": {
       "beef_carpaccio": {
         "name": "Beef Carpaccio",
-        "description": "thinly sliced beef fillet, balsamic vinegar, capers, parmesan"
+        "description": "thinly sliced beef fillet, balsamic vinegar, capers, parmesan",
+        "price": 82
       },
-      "cheese_platter": {
-        "name": "Cheese Platter",
-        "description": "5 selected cheese varieties with nuts, dried fruits and honey"
+      "beet_carpaccio": {
+        "name": "Beet Carpaccio",
+        "description": "",
+        "price": 42
       },
-      "pickled_assortment": {
-        "name": "Homemade Pickled Assortment",
-        "description": ""
+      "salmon_tartare": {
+        "name": "Salmon Tartare",
+        "description": "",
+        "price": 68
       },
-      "edamame": {
-        "name": "Edamame",
-        "description": ""
+      "tuna_tartare": {
+        "name": "Tuna Tartare",
+        "description": "",
+        "price": 72
       },
-      "focaccia": {
-        "name": "Focaccia",
-        "description": "with dips"
+      "beef_tartare": {
+        "name": "Beef Tartare",
+        "description": "",
+        "price": 68
       },
-      "french_fries": {
-        "name": "French Fries",
-        "description": "choice of: plain/with cheese/with cheese and bacon"
+      "bruschetta_burrata": {
+        "name": "Bruschetta with Burrata, Tomatoes and Basil",
+        "description": "",
+        "price": 48
       },
-      "ohm_fries": {
-        "name": "Ohm Fries",
-        "description": "potatoes with sweet chili"
+      "bbq_chicken_wings": {
+        "name": "BBQ Chicken Wings",
+        "description": "",
+        "price": 54
       },
-      "stuffed_portobello": {
-        "name": "Stuffed Portobello Mushrooms",
-        "description": "3 Portobello mushrooms stuffed with cheese and pesto"
+      "tempura_shrimp": {
+        "name": "Tempura Shrimp",
+        "description": "",
+        "price": 76
       },
-      "calamari_rings": {
-        "name": "Calamari Rings",
-        "description": "breaded and fried, served with tartar sauce"
+      "veggie_spring_rolls": {
+        "name": "Vegetable Spring Rolls",
+        "description": "",
+        "price": 52
       },
-      "fried_platter": {
-        "name": "Fried Appetizer Platter",
-        "description": "onion rings, sweet potato fries, french fries and potato balls"
+      "shrimp_spring_rolls": {
+        "name": "Shrimp Spring Rolls",
+        "description": "",
+        "price": 64
       },
-      "chicken_wings": {
-        "name": "Chicken Wings",
-        "description": "in BBQ sauce"
-      },
-      "baked_nachos": {
-        "name": "Baked Nachos with Cheese",
-        "description": "corn tortilla chips, served with dips"
-      },
-      "fried_halloumi": {
-        "name": "Fried Halloumi Cheese",
-        "description": ""
+      "falafel_tahini": {
+        "name": "Falafel with Tahini",
+        "description": "",
+        "price": 38
       },
       "caesar_salad": {
         "name": "Caesar Salad",
@@ -384,6 +387,11 @@
         "name": "Seafood Pasta",
         "description": "with seafood mix (shrimp, calamari and mussels) and cream sauce"
       },
+      "carbonara_pasta": {
+        "name": "Pasta Carbonara",
+        "description": "",
+        "price": 78
+      },
       "triple_chocolate": {
         "name": "Triple Chocolate",
         "description": ""
@@ -412,7 +420,6 @@
         "name": "Fruit Platter",
         "description": ""
       }
-    },
-    "note": "Menu items are subject to change. Please ask your server for the current selection."
+    }
   }
 }

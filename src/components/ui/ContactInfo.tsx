@@ -133,11 +133,11 @@ const WorkingHours = styled.div`
   flex: 1;
 `;
 
-const DayTime = styled.div<{ isOpen?: boolean; $isRtl?: boolean }>`
+const DayTime = styled.div<{ $isOpen?: boolean; $isRtl?: boolean }>`
   display: flex;
   justify-content: space-between;
-  color: ${({ theme, isOpen }) =>
-    isOpen ? theme.colors.success : theme.colors.textSecondary};
+  color: ${({ theme, $isOpen }) =>
+    $isOpen ? theme.colors.success : theme.colors.textSecondary};
   font-size: ${({ theme }) => theme.typography.fontSize.sm};
   padding: ${({ theme }) => theme.spacing.xs} 0;
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
@@ -304,7 +304,7 @@ const ContactInfo: React.FC<ContactInfoProps> = ({ isRtl = false }) => {
             {days.map(({ name, hours, day, open, close }) => (
               <DayTime
                 key={day}
-                isOpen={isCurrentlyOpen(day, open, close)}
+                $isOpen={isCurrentlyOpen(day, open, close)}
                 $isRtl={isRtl}
               >
                 <span>{name}</span>
