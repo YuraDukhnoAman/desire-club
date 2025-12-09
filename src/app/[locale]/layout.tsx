@@ -8,14 +8,21 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { MetaPixelProvider } from "@/components/providers/MetaPixelProvider";
+import { AxeDevTools } from "@/components/providers/AxeDevTools";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Desire Music Club",
+  title: {
+    default: "Desire Music Club",
+    template: "%s | Desire Music Club",
+  },
   description: "Tel Aviv's premier nightclub for electronic music lovers",
   icons: {
     icon: "/favicon.ico",
   },
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_BASE_URL || "https://desiremusicclub.com"
+  ),
 };
 
 export function generateStaticParams() {
@@ -63,9 +70,19 @@ export default async function LocaleLayout({
           <StyledComponentsRegistry>
             <ThemeProvider>
               <MetaPixelProvider>
+                <AxeDevTools />
                 <ErrorBoundary>
+                  <a href="#main-content" className="skip-to-content">
+                    {locale === "he"
+                      ? "דלג לתוכן הראשי"
+                      : locale === "ru"
+                      ? "Перейти к основному содержанию"
+                      : "Skip to main content"}
+                  </a>
                   <Header />
-                  <main>{children}</main>
+                  <main id="main-content" role="main">
+                    {children}
+                  </main>
                   <Footer />
                 </ErrorBoundary>
               </MetaPixelProvider>

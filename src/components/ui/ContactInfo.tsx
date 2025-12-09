@@ -258,7 +258,10 @@ const ContactInfo: React.FC<ContactInfoProps> = ({ isRtl = false }) => {
         <InfoItem $isRtl={isRtl}>
           <FaPhone />
           <span>+972 50 210 2496</span>
-          <CopyButton onClick={() => handleCopy("+972502102496", "phone")}>
+          <CopyButton 
+            onClick={() => handleCopy("+972502102496", "phone")}
+            aria-label={copySuccess === "phone" ? t("copied") || "Copied" : t("copy")}
+          >
             {copySuccess === "phone" ? "✓" : t("copy")}
           </CopyButton>
         </InfoItem>
@@ -266,33 +269,36 @@ const ContactInfo: React.FC<ContactInfoProps> = ({ isRtl = false }) => {
         <InfoItem $isRtl={isRtl}>
           <FaEnvelope />
           <span>muraze@gmail.com</span>
-          <CopyButton onClick={() => handleCopy("muraze@gmail.com", "email")}>
+          <CopyButton 
+            onClick={() => handleCopy("muraze@gmail.com", "email")}
+            aria-label={copySuccess === "email" ? t("copied") || "Copied" : t("copy")}
+          >
             {copySuccess === "email" ? "✓" : t("copy")}
           </CopyButton>
         </InfoItem>
 
-        <SocialLinks $isRtl={isRtl}>
+        <SocialLinks $isRtl={isRtl} aria-label={isRtl ? "קישורי רשתות חברתיות" : "Social media links"}>
           <BookLink
             href={`/${params.locale}/book`}
-            aria-label={t("social.whatsapp")}
+            aria-label={t("social.whatsapp") + " - " + (isRtl ? "הזמנת שולחן" : "Book a table")}
           >
-            <FaWhatsapp />
+            <FaWhatsapp aria-hidden="true" />
           </BookLink>
           <SocialLink
             href="https://instagram.com/desireclubtlv"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={t("social.instagram")}
+            aria-label={t("social.instagram") + " - " + (isRtl ? "פתח בחלון חדש" : "Opens in new window")}
           >
-            <FaInstagram />
+            <FaInstagram aria-hidden="true" />
           </SocialLink>
           <SocialLink
             href="https://facebook.com/969524779859537"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={t("social.facebook")}
+            aria-label={t("social.facebook") + " - " + (isRtl ? "פתח בחלון חדש" : "Opens in new window")}
           >
-            <FaFacebook />
+            <FaFacebook aria-hidden="true" />
           </SocialLink>
         </SocialLinks>
       </Section>

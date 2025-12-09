@@ -8,6 +8,9 @@ import { PageContainer, PageTitle } from "@/components/ui/PageLayout";
 import { FacebookEventsGrid } from "@/components/sections/FacebookEventsGrid";
 import { PrivateEvents } from "@/components/sections/PrivateEvents";
 
+// Note: Metadata should be exported from a separate metadata file or parent layout
+// as this is a client component
+
 const PageWrapper = styled.div`
   position: relative;
   width: 100%;

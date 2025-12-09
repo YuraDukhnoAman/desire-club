@@ -350,6 +350,8 @@ export function FacebookEventsGrid() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
+          role="group"
+          aria-label={isRtl ? "סינון אירועים לפי סוג" : "Filter events by type"}
         >
           <FilterButton
             $isRtl={isRtl}
@@ -357,6 +359,7 @@ export function FacebookEventsGrid() {
             onClick={() => setSelectedType(null)}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            aria-pressed={!selectedType}
           >
             {t("all")}
           </FilterButton>
@@ -368,6 +371,7 @@ export function FacebookEventsGrid() {
               onClick={() => setSelectedType(type)}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              aria-pressed={selectedType === type}
             >
               {t(`types.${type}`)}
             </FilterButton>

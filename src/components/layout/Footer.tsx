@@ -5,7 +5,9 @@ import { useTranslations } from "next-intl";
 import styled from "styled-components";
 import Link from "next/link";
 
-const FooterContainer = styled.footer`
+const FooterContainer = styled.footer.attrs({
+  role: "contentinfo",
+})`
   background: ${({ theme }) => theme.colors.surface};
   border-top: 1px solid ${({ theme }) => theme.colors.border};
   padding: ${({ theme }) => theme.spacing.xxl} 0
@@ -33,7 +35,7 @@ const FooterSection = styled.div`
   gap: ${({ theme }) => theme.spacing.md};
 `;
 
-const FooterTitle = styled.h3`
+const FooterTitle = styled.h2`
   font-family: ${({ theme }) => theme.typography.fontFamily.accent};
   font-size: ${({ theme }) => theme.typography.fontSize.xl};
   color: ${({ theme }) => theme.colors.text};

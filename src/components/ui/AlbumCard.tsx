@@ -210,22 +210,22 @@ export function AlbumCard({
       whileTap={{ y: -6, scale: 1.01 }}
     >
       <ImageContainer>
-        {(coverImage || !imageError) && (
-          <Image
-            src={imageError ? fallbackImage : imgSrc || fallbackImage}
-            alt={name}
-            fill
-            style={{ objectFit: "cover" }}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            onError={() => {
-              if (!imageError) {
-                setImageError(true);
-                setImgSrc(fallbackImage);
-              }
-            }}
-            unoptimized
-          />
-        )}
+            {(coverImage || !imageError) && (
+              <Image
+                src={imageError ? fallbackImage : imgSrc || fallbackImage}
+                alt={`${name} - ${photoCount} ${photoCount === 1 ? t('photo') : t('photos')}`}
+                fill
+                style={{ objectFit: "cover" }}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                onError={() => {
+                  if (!imageError) {
+                    setImageError(true);
+                    setImgSrc(fallbackImage);
+                  }
+                }}
+                unoptimized
+              />
+            )}
         <PhotoCountBadge>
           {photoCount} {photoCount === 1 ? t("photo") : t("photos")}
         </PhotoCountBadge>
